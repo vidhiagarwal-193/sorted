@@ -79,6 +79,7 @@ export function RequestCheck(props: { clientKey: string; clientName: string; ite
             label="New request"
             reason={result.reason}
             items={props.items.filter((it) => result.conflictsWith.includes(it.id))}
+            alternative={result.alternative}
             onDismiss={() => setResult(null)}
           />
         </div>

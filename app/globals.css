@@ -70,3 +70,47 @@ body {
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
 }
+
+/* ---- Landing page only (Overview): feed motion. New class names, used nowhere else. ---- */
+@keyframes landing-pop {
+  /* movement only, so tiles are never left invisible if animation is paused */
+  from {
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    transform: none;
+  }
+}
+.landing-pop {
+  animation: landing-pop 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes landing-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(260%);
+  }
+}
+.landing-scan {
+  animation: landing-scan 2.6s ease-in-out infinite;
+}
+@keyframes landing-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(137, 140, 114, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(137, 140, 114, 0);
+  }
+}
+.landing-ring {
+  animation: landing-ring 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-pop,
+  .landing-scan,
+  .landing-ring {
+    animation: none;
+  }
+}

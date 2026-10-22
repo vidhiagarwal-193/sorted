@@ -27,6 +27,7 @@ export async function askAIForJSON<T>(opts: {
   schema: Record<string, unknown>;
   maxTokens: number;
   media?: MediaPart[];
+  effort?: "low" | "medium" | "high"; // how much the model thinks first; low is fastest
 }): Promise<T> {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) {
@@ -44,7 +45,7 @@ export async function askAIForJSON<T>(opts: {
       body: JSON.stringify({
         model: opts.model,
         max_tokens: opts.maxTokens,
-        reasoning: { effort: "low" }, // less "thinking time" so answers come back in seconds
+        reasoning: { effort: opts.effort ?? "low" }, // judgement-heavy jobs ask for more thinking
         messages: [
           { role: "system", content: opts.system },
           { role: "user", content: opts.media?.length ? withMedia(opts.user, opts.media) : opts.user },

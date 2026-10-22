@@ -1,7 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Check, CircleDashed } from "lucide-react";
-import { Card, Page, PageHeader, Skeleton } from "@/components/ui";
+import { Button, Card, Page, PageHeader, Skeleton } from "@/components/ui";
+import { TelegramSettings } from "@/components/TelegramPanels";
+import { useClients } from "@/lib/clients";
+import { clearDemoData, loadDemoData } from "@/lib/demoData";
 import { useStatus } from "@/lib/useStatus";
 
 const CONNECTIONS = [
@@ -10,6 +14,12 @@ const CONNECTIONS = [
     name: "AI (Gemini via OpenRouter)",
     on: "Reads messages and checks requests.",
     off: "Add OPENROUTER_API_KEY to .env.local, then restart the app.",
+  },
+  {
+    id: "apify",
+    name: "Apify (Instagram trends)",
+    on: "Trend Radar reads recent public Instagram posts and Reels for each client's niche.",
+    off: "Add APIFY_TOKEN to .env.local (and to Vercel) to use Trend Radar.",
   },
   {
     id: "github",
@@ -27,9 +37,14 @@ const CONNECTIONS = [
 
 export default function SettingsPage() {
   const status = useStatus();
+  const router = useRouter();
+  const { clients } = useClients();
   return (
     <Page>
       <PageHeader eyebrow="Settings" title="Connections" />
+      <div className="mb-6">
+        <TelegramSettings clients={clients} />
+      </div>
       <div className="flex max-w-2xl flex-col gap-3">
         {CONNECTIONS.map((c) => {
           const on = status?.[c.id];
@@ -59,6 +74,40 @@ export default function SettingsPage() {
           );
         })}
       </div>
+
+      <h2 className="mb-3 mt-10 font-display text-[19px] font-bold">Demo data</h2>
+      <Card className="max-w-2xl p-5">
+        <p className="text-[14px] text-muted">
+          Three made-up clients (Spice Route, Bloom Bakery, Ivy &amp; Thread) with confirmed brand memory, real Instagram trend
+          scans and content reviews from testing. Loading replaces what&apos;s saved in this browser for those three clients.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Button
+            disabled={status?.github}
+            onClick={() => {
+              if (!window.confirm("Load demo data? This replaces anything saved in this browser for Spice Route, Bloom Bakery and Ivy & Thread.")) return;
+              loadDemoData();
+              router.push("/");
+            }}
+          >
+            Load demo data
+          </Button>
+          <Button
+            variant="ghost"
+            disabled={status?.github}
+            onClick={() => {
+              if (!window.confirm("Clear all data saved in this browser for Spice Route, Bloom Bakery and Ivy & Thread?")) return;
+              clearDemoData();
+              router.push("/");
+            }}
+          >
+            Clear it
+          </Button>
+        </div>
+        {status?.github && (
+          <p className="mt-3 text-[12px] text-muted">Turned off while GitHub saving is on, so shared team memory is never replaced.</p>
+        )}
+      </Card>
     </Page>
   );
 }

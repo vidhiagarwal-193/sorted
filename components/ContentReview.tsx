@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Check, ChevronLeft, ChevronRight, Film, ImageUp, Images, RotateCcw, ScanSearch, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Film, ImageUp, Images, RotateCcw, ScanSearch, X } from "lucide-react";
 import type { MediaPart } from "@/lib/ai";
 import type { ClientProfile } from "@/lib/clients";
 import { IMAGE_TYPES, mmss, prepareImage, prepareVideo, VIDEO_TYPES } from "@/lib/media";
 import { callApi } from "@/lib/useClientMemory";
 import type { ClientMemory, CreativeKind, MemoryOp, ReviewContext, ReviewRecord, ReviewResult } from "@/lib/types";
+import { StepProgress } from "./Progress";
 import { ReviewResults, VERDICT } from "./ReviewResults";
 import { AiTag, Button, ErrorNote } from "./ui";
 
@@ -484,36 +485,18 @@ function History({ reviews, current, onOpen }: { reviews: ReviewRecord[]; curren
 
 // Shows the team what's happening during the 10–30 seconds a review takes.
 function ReviewProgress({ phase, details, clientName }: { phase: "prepare" | "ai"; details: number; clientName: string }) {
-  const [seconds, setSeconds] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
-  const steps = [
-    "Preparing the creative",
-    "Reading every word and visual",
-    `Comparing with ${details} confirmed detail${details === 1 ? "" : "s"} from ${clientName}'s memory`,
-    "Checking prices, numbers and dates",
-  ];
-  const current = phase === "prepare" ? 0 : seconds < 5 ? 1 : seconds < 12 ? 2 : 3;
   return (
-    <div className="rise mt-4 rounded-xl border border-line bg-paper/60 p-4" aria-live="polite">
-      <ol className="flex flex-col gap-2">
-        {steps.map((label, i) => (
-          <li key={label} className={`flex items-center gap-2.5 text-[13px] ${i > current ? "text-muted/60" : ""}`}>
-            <span
-              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                i < current ? "bg-accent text-card" : i === current ? "border-2 border-accent" : "border border-line"
-              }`}
-            >
-              {i < current && <Check size={10} strokeWidth={3} />}
-            </span>
-            {label}
-            {i === current && <span className="ml-auto text-[12px] tabular-nums text-muted">{seconds}s</span>}
-          </li>
-        ))}
-      </ol>
-      <p className="mt-3 text-[12px] text-muted">Usually 10–30 seconds.</p>
-    </div>
+    <StepProgress
+      key={phase}
+      steps={[
+        "Preparing the creative",
+        "Reading every word and visual",
+        `Comparing with ${details} confirmed detail${details === 1 ? "" : "s"} from ${clientName}'s memory`,
+        "Checking prices, numbers and dates",
+      ]}
+      startAt={phase === "prepare" ? 0 : 1}
+      at={phase === "prepare" ? [] : [5, 12]}
+      note="Usually 10–30 seconds."
+    />
   );
 }

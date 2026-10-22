@@ -32,6 +32,15 @@ export const DEMO_CLIENTS: ClientProfile[] = [
     colors: ["#E7A6B8", "#9FD8C0"], // "pastel pink and mint green"
     monogramText: "#3B2A2F",
   },
+  {
+    key: "Ivy & Thread",
+    slug: "ivy-thread",
+    name: "Ivy & Thread",
+    category: "Boutique",
+    contact: "Meera",
+    description: "Quiet, elegant handwoven linen. Ivory, sage and soft gold; fabric up close.",
+    colors: ["#5C6B57", "#E3E6D8"], // "ivory, sage green and soft gold"
+  },
 ];
 
 // The business name for an internal client key, e.g. "Client A" -> "Spice Route".

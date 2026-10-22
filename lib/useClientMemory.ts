@@ -40,7 +40,16 @@ export function localMemoryFor(client: string): ClientMemory | undefined {
   return undefined;
 }
 
-function rememberLocally(client: string, memory: ClientMemory) {
+export function forgetLocally(client: string) {
+  localMemory.delete(client);
+  try {
+    localStorage.removeItem(storageKey(client));
+  } catch {
+    // Nothing to clear.
+  }
+}
+
+export function rememberLocally(client: string, memory: ClientMemory) {
   localMemory.set(client, memory);
   try {
     localStorage.setItem(storageKey(client), JSON.stringify(memory));
@@ -117,4 +126,22 @@ export function useClientMemory(clientKey: string) {
   }
 
   return { memory, loading, loadError, saveStatus, change };
+}
+
+// Saves one change to any client's memory, even one that isn't open on screen:
+// to GitHub when saving is set up, otherwise to this browser.
+export async function saveChangeFor(clientKey: string, op: MemoryOp, note: string) {
+  try {
+    const r = await callApi<{ saved: boolean; memory?: ClientMemory }>("/api/memory", {
+      method: "POST",
+      body: JSON.stringify({ client: clientKey, change: op, note }),
+    });
+    if (r.saved && r.memory) {
+      rememberLocally(clientKey, r.memory);
+      return;
+    }
+  } catch {
+    // Fall through and keep it in this browser.
+  }
+  rememberLocally(clientKey, applyOp(localMemoryFor(clientKey) ?? empty(clientKey), op));
 }

@@ -12,6 +12,7 @@ export function ConflictBox(props: {
   label: string;
   reason: string;
   items: MemoryItem[];
+  alternative?: string;
   onDismiss: () => void;
 }) {
   const [open, setOpen] = useState<string | null>(null);
@@ -51,6 +52,12 @@ export function ConflictBox(props: {
           ))}
         </div>
       </div>
+      {props.alternative && (
+        <div className="border-t border-line bg-sage/60 px-4 py-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">Try instead</p>
+          <p className="mt-0.5 text-[14px]">{props.alternative}</p>
+        </div>
+      )}
       <div className="flex items-center justify-between gap-3 border-t border-line px-4 py-2.5">
         <p className="text-[12px] text-muted">Sorted only flags. You decide whether to go ahead.</p>
         <button className="rounded-md px-2 py-1 text-[13px] font-medium text-ink hover:bg-soft" onClick={props.onDismiss}>

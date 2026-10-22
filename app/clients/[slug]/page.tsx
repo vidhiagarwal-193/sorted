@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { AddMessages } from "@/components/AddMessages";
@@ -9,6 +9,8 @@ import { MemoryGrid, ReviewQueue } from "@/components/BrandMemory";
 import { ConflictBox } from "@/components/ConflictBox";
 import { ContentReview } from "@/components/ContentReview";
 import { RequestCheck } from "@/components/RequestCheck";
+import { TelegramActivity } from "@/components/TelegramPanels";
+import { TrendRadar } from "@/components/TrendRadar";
 import { AiTag, Card, ClientAvatar, EmptyState, Page, SaveBadge, SectionTitle, Skeleton } from "@/components/ui";
 import { useClients, type ClientProfile } from "@/lib/clients";
 import { useClientMemory } from "@/lib/useClientMemory";
@@ -19,13 +21,13 @@ const TABS = [
   { id: "overview", label: "Overview" },
   { id: "memory", label: "Brand Memory" },
   { id: "review", label: "Content Review" },
-  { id: "trends", label: "Trend Radar", soon: true },
+  { id: "trends", label: "Trend Radar" },
   { id: "studio", label: "Content Studio", soon: true },
   { id: "calendar", label: "Calendar", soon: true },
   { id: "tasks", label: "Tasks & Approvals", soon: true },
   { id: "insights", label: "Insights", soon: true },
 ] as const;
-type TabId = "overview" | "memory" | "review";
+type TabId = "overview" | "memory" | "review" | "trends";
 
 export default function ClientWorkspacePage() {
   return (
@@ -66,11 +68,12 @@ function ClientWorkspace() {
 }
 
 function Workspace({ client }: { client: ClientProfile }) {
-  const [tab, setTab] = useState<TabId>("overview");
+  const asked = useSearchParams().get("tab");
+  const [tab, setTab] = useState<TabId>(asked === "trends" || asked === "review" || asked === "memory" ? asked : "overview");
   const { memory, loading, loadError, saveStatus, change } = useClientMemory(client.key);
   const status = useStatus();
   const items = memory.items;
-  const pending = items.filter((it) => !it.confirmed).length;
+  const pending = items.filter((it) => !it.confirmed && !it.supersededBy).length;
   const alerts = (memory.alerts ?? []).filter((a) => !a.dismissed).reverse();
 
   return (
@@ -107,8 +110,8 @@ function Workspace({ client }: { client: ClientProfile }) {
           <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line pt-3 sm:w-auto sm:flex-col sm:items-end sm:border-0 sm:pt-0">
             <SaveBadge status={saveStatus} />
             <span className="inline-flex items-center gap-1.5 text-[12px] text-muted">
-              <span className={`h-1.5 w-1.5 rounded-full ${status?.whatsapp ? "bg-ok" : "bg-muted/50"}`} />
-              {status?.whatsapp ? "Live WhatsApp on" : "Live WhatsApp not connected"}
+              <span className={`h-1.5 w-1.5 rounded-full ${status?.telegram || status?.whatsapp ? "bg-ok" : "bg-muted/50"}`} />
+              {status?.telegram ? "Telegram set up" : status?.whatsapp ? "Live WhatsApp on" : "No live chat connected"}
             </span>
           </div>
         </div>
@@ -161,7 +164,11 @@ function Workspace({ client }: { client: ClientProfile }) {
 
       {loadError && <p className="mb-4 rounded-lg bg-alert-soft px-3 py-2.5 text-[13px] text-alert-ink">{loadError}</p>}
 
-      {tab === "review" ? (
+      {tab === "trends" ? (
+        <div key="trends" className="rise">
+          <TrendRadar client={client} memory={memory} onChange={change} onReview={() => setTab("review")} />
+        </div>
+      ) : tab === "review" ? (
         <div key="review" className="rise">
           <ContentReview client={client} memory={memory} onChange={change} />
         </div>
@@ -184,6 +191,7 @@ function Workspace({ client }: { client: ClientProfile }) {
                       label={`${a.from} on WhatsApp · ${a.date}`}
                       reason={a.reason}
                       items={items.filter((it) => a.conflictsWith.includes(it.id))}
+                      alternative={a.alternative}
                       onDismiss={() => change({ op: "dismissAlert", id: a.id }, a.message.slice(0, 50))}
                     />
                   ))}
@@ -216,11 +224,7 @@ function Workspace({ client }: { client: ClientProfile }) {
           </div>
           <div className="lg:sticky lg:top-6 lg:self-start">
             <AddMessages clientKey={client.key} onChange={change} />
-            <p className="mt-3 px-1 text-[12px] leading-relaxed text-muted">
-              {status?.whatsapp
-                ? "Live WhatsApp is on: new messages from this client appear here automatically."
-                : "Live WhatsApp isn't connected yet, so new messages need to be added here. See Settings."}
-            </p>
+            <TelegramActivity client={client} memory={memory} />
           </div>
         </div>
       )}

@@ -44,8 +44,9 @@ export function useClients() {
     try {
       const parsed = JSON.parse(stored || "[]");
       if (!Array.isArray(parsed)) return [];
+      const demoSlugs = new Set(DEMO_CLIENTS.map((c) => c.slug));
       // Clients added before each got its own colours used a plain dark/sage pair; give them one now.
-      return parsed.map((c: ClientProfile) =>
+      return parsed.filter((c: ClientProfile) => !demoSlugs.has(c.slug)).map((c: ClientProfile) =>
         c.colors?.[0] === "#302C28" && c.colors?.[1] === "#E9E9E0" ? { ...c, colors: paletteFor(c.name) } : c,
       );
     } catch {

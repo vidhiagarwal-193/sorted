@@ -22,6 +22,8 @@ const COMMIT_LABEL: Record<MemoryOp["op"], string> = {
   discard: "Discard",
   dismissAlert: "Dismiss alert",
   addReview: "Save content review",
+  addTrends: "Save trend ideas",
+  setIdea: "Update trend idea",
 };
 
 // POST /api/memory  { client, change, note }  -> applies one change to the latest memory and commits it

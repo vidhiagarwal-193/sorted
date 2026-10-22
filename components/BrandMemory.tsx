@@ -18,7 +18,10 @@ function Meta({ it }: { it: MemoryItem }) {
       <span>{it.source}</span>
       <span>·</span>
       <span>{it.date || "no date"}</span>
-      {it.source === "WhatsApp (live)" && (
+      {it.basis === "inferred" && (
+        <span className="rounded-full border border-line px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide">Inferred</span>
+      )}
+      {(it.source === "WhatsApp (live)" || it.source === "Telegram (live)") && (
         <span className="rounded-full bg-ink px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide text-sage">Live</span>
       )}
     </p>
@@ -27,7 +30,8 @@ function Meta({ it }: { it: MemoryItem }) {
 
 // Items the AI pulled out, waiting for a human to confirm them.
 export function ReviewQueue({ items, onChange }: { items: MemoryItem[]; onChange: (op: MemoryOp, note: string) => void }) {
-  const pending = items.filter((it) => !it.confirmed);
+  const pending = items.filter((it) => !it.confirmed && !it.supersededBy);
+  const replacedText = (id: string) => items.find((x) => x.id === id);
   if (pending.length === 0) return null;
   return (
     <section className="rise mb-8 rounded-2xl border border-ink bg-ink p-4 text-paper sm:p-5">
@@ -46,6 +50,17 @@ export function ReviewQueue({ items, onChange }: { items: MemoryItem[]; onChange
             <p className="text-[11px] font-semibold uppercase tracking-wider text-sage">{TYPE_LABELS[it.type]}</p>
             <p className="mt-1 text-[15px] font-medium">{it.text}</p>
             <p className="mt-1 text-[13px] italic text-paper/70">&ldquo;{it.quote}&rdquo;</p>
+            {it.basis === "inferred" && (
+              <p className="mt-1 text-[12px] text-sage">Inferred from how they write, not said directly. Confirm only if you agree.</p>
+            )}
+            {(it.replaces ?? []).map((id) => {
+              const old = replacedText(id);
+              return old ? (
+                <p key={id} className="mt-1 text-[12px] text-paper/60">
+                  Replaces &ldquo;{old.quote}&rdquo; ({old.source}, {old.date || "no date"}). Confirming retires the old one.
+                </p>
+              ) : null;
+            })}
             <p className="mt-2 text-[12px] text-paper/50">
               {it.source} · {it.date || "no date"}
             </p>
@@ -75,6 +90,7 @@ export function ReviewQueue({ items, onChange }: { items: MemoryItem[]; onChange
 // Confirmed brand knowledge, grouped like a style guide.
 export function MemoryGrid({ items, loading, clientName }: { items: MemoryItem[]; loading: boolean; clientName: string }) {
   const confirmed = items.filter((it) => it.confirmed);
+  const replaced = items.filter((it) => it.supersededBy);
   if (loading) {
     return (
       <div className="grid gap-4 md:grid-cols-2">
@@ -93,6 +109,7 @@ export function MemoryGrid({ items, loading, clientName }: { items: MemoryItem[]
     );
   }
   return (
+    <>
     <div className="grid gap-4 md:grid-cols-2">
       {ITEM_TYPES.map((type) => {
         const group = confirmed.filter((it) => it.type === type);
@@ -124,5 +141,19 @@ export function MemoryGrid({ items, loading, clientName }: { items: MemoryItem[]
         );
       })}
     </div>
+    {replaced.length > 0 && (
+      <details className="mt-4 rounded-2xl border border-line bg-card p-4 text-[13px]">
+        <summary className="cursor-pointer font-semibold">Replaced instructions ({replaced.length})</summary>
+        <ul className="mt-2 flex flex-col gap-2">
+          {replaced.map((it) => (
+            <li key={it.id} className="text-muted">
+              <span className="line-through">&ldquo;{it.quote}&rdquo;</span> · {it.source}, {it.date || "no date"} · replaced by &ldquo;
+              {items.find((x) => x.id === it.supersededBy)?.quote ?? "a newer instruction"}&rdquo;
+            </li>
+          ))}
+        </ul>
+      </details>
+    )}
+    </>
   );
 }

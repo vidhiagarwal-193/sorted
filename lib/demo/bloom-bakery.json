@@ -1,0 +1,192 @@
+{
+  "client": "Client B",
+  "items": [
+    {
+      "id": "f61d3cbe-c89b-403c-adbc-0b0d69605f3d",
+      "type": "preference",
+      "text": "Tone should be playful and friendly, puns are welcome.",
+      "quote": "Our brand voice is playful and friendly, puns are welcome.",
+      "date": "2 Sep 2026",
+      "source": "Email",
+      "original": "Our brand voice is playful and friendly, puns are welcome.",
+      "confirmed": true
+    },
+    {
+      "id": "95f32319-be24-48e0-a8b9-cb7f1062b154",
+      "type": "preference",
+      "text": "Use pastel pink and mint green across all designs.",
+      "quote": "Please use pastel pink and mint green in all designs.",
+      "date": "2 Sep 2026",
+      "source": "Email",
+      "original": "Please use pastel pink and mint green in all designs.",
+      "confirmed": true
+    },
+    {
+      "id": "c8d9fe0b-a57b-4831-835c-751261ec2e6b",
+      "type": "dont",
+      "text": "Never show products or items with artificial colouring.",
+      "quote": "We never want to show anything with artificial colouring, our USP is all natural.",
+      "date": "2 Sep 2026",
+      "source": "Email",
+      "original": "We never want to show anything with artificial colouring, our USP is all natural.",
+      "confirmed": true
+    },
+    {
+      "id": "0a2b4cf1-1d6f-473a-bb38-64ec07f7637f",
+      "type": "offer",
+      "text": "Buy one get one free cupcakes every Tuesday in October.",
+      "quote": "For October our main offer is buy one get one free on cupcakes every Tuesday.",
+      "date": "10 Sep 2026",
+      "source": "Email",
+      "original": "For October our main offer is buy one get one free on cupcakes every Tuesday.",
+      "confirmed": true
+    },
+    {
+      "id": "8e52935b-b55a-4b73-b7f2-af24a1986d8d",
+      "type": "decision",
+      "text": "Stop Facebook posting; focus on Instagram and YouTube Shorts only.",
+      "quote": "We've decided to stop posting on Facebook, Instagram and YouTube Shorts only from now.",
+      "date": "10 Sep 2026",
+      "source": "Email",
+      "original": "We've decided to stop posting on Facebook, Instagram and YouTube Shorts only from now.",
+      "confirmed": true
+    }
+  ],
+  "alerts": [],
+  "reviews": [
+    {
+      "id": "5579d538-cf0a-49a0-bebc-d31355a021ee",
+      "creativeId": "e9b98ec2-3885-4eaf-80b4-02ba53f1e438",
+      "version": 1,
+      "createdAt": "2026-10-22T07:17:52.794Z",
+      "creative": {
+        "kind": "image",
+        "files": [
+          "bloom-bogo-tuesday.jpg"
+        ],
+        "analysedAs": "the image"
+      },
+      "context": {
+        "format": "Instagram feed post",
+        "campaign": "Cupcake Tuesdays (October)",
+        "purpose": "Get more walk-ins on Tuesdays",
+        "caption": "Tuesdays just got twice as sweet 🧁🧁 Buy one cupcake, get one FREE, every Tuesday in October. Naturally coloured, always. Tag the friend you'd share with (or not 😉). #BloomBakery #CupcakeTuesday",
+        "newInstructions": "",
+        "stage": "first_draft"
+      },
+      "memoryUsed": {
+        "confirmed": 5,
+        "itemIds": [
+          "f61d3cbe-c89b-403c-adbc-0b0d69605f3d",
+          "95f32319-be24-48e0-a8b9-cb7f1062b154",
+          "c8d9fe0b-a57b-4831-835c-751261ec2e6b",
+          "0a2b4cf1-1d6f-473a-bb38-64ec07f7637f",
+          "8e52935b-b55a-4b73-b7f2-af24a1986d8d"
+        ],
+        "memoryUpdatedAt": ""
+      },
+      "result": {
+        "verdict": "minor_changes",
+        "headline": "The post aligns well with client memory and brand guidelines, but adding an actual cupcake image or store location would boost walk-in conversion.",
+        "areas": {
+          "instructions": {
+            "status": "ok",
+            "note": "Complies with colour preferences, natural colouring focus, and Instagram channel focus."
+          },
+          "brand": {
+            "status": "ok",
+            "note": "Pastel pink and mint green palette is followed accurately."
+          },
+          "messaging": {
+            "status": "ok",
+            "note": "Playful, friendly tone and highlights the natural colouring USP."
+          },
+          "facts": {
+            "status": "ok",
+            "note": "Offer matches approved memory: BOGO cupcakes every Tuesday in October."
+          },
+          "objective": {
+            "status": "issue",
+            "note": "The goal is walk-ins, but there is no call to action prompting a physical visit or mentioning in-store pickup/location."
+          }
+        },
+        "findings": [
+          {
+            "severity": "suggestion",
+            "certainty": "confirmed",
+            "category": "visual",
+            "title": "Text-only graphic lacks appetite appeal",
+            "location": "Image",
+            "why": "For a bakery aiming to drive walk-ins, showing a high-quality photograph or illustration of the actual cupcakes (naturally coloured) creates much stronger craving and engagement than plain typography.",
+            "fix": "Include an appetizing visual of naturally coloured cupcakes alongside the text.",
+            "evidence": [
+              "c8d9fe0b-a57b-4831-835c-751261ec2e6b"
+            ],
+            "id": "2a424bbf-10c8-4604-85df-e0194ae0ab44"
+          },
+          {
+            "severity": "suggestion",
+            "certainty": "confirmed",
+            "category": "copy",
+            "title": "Missing in-store walk-in call to action",
+            "location": "Caption",
+            "why": "The stated purpose is driving walk-ins on Tuesdays, but the caption only prompts users to tag a friend rather than inviting them into the shop or specifying in-store availability.",
+            "fix": "Add a clear in-store prompt to the caption, such as 'Pop into the shop this Tuesday to claim yours!'",
+            "evidence": [],
+            "id": "b6f5ab74-a602-4903-8e2a-bcbf078759b6"
+          }
+        ],
+        "missing": [
+          {
+            "detail": "Bakery location / in-store mention",
+            "required": false,
+            "why": "To maximize Tuesday walk-ins, reminding customers where the bakery is located or explicitly mentioning in-store redemption is helpful."
+          }
+        ],
+        "positives": [
+          {
+            "point": "Accurately represents the October Tuesday BOGO cupcake offer.",
+            "evidence": [
+              "0a2b4cf1-1d6f-473a-bb38-64ec07f7637f"
+            ]
+          },
+          {
+            "point": "Uses brand-approved pastel pink and mint green colour palette.",
+            "evidence": [
+              "95f32319-be24-48e0-a8b9-cb7f1062b154"
+            ]
+          },
+          {
+            "point": "Reinforces the client's all-natural colouring USP in both copy and image.",
+            "evidence": [
+              "c8d9fe0b-a57b-4831-835c-751261ec2e6b"
+            ]
+          },
+          {
+            "point": "Maintains a playful and friendly tone.",
+            "evidence": [
+              "f61d3cbe-c89b-403c-adbc-0b0d69605f3d"
+            ]
+          }
+        ],
+        "fixes": [
+          "Add an in-store call to action to the caption to support the walk-in objective.",
+          "Consider incorporating imagery of the actual naturally coloured cupcakes to increase appetite appeal."
+        ],
+        "textFound": "Twice the frosting, none of the guilt BUY 1 GET 1 FREE on all cupcakes Every Tuesday this October Baked fresh. 100% natural colours. Bloom Bakery Caption: Tuesdays just got twice as sweet 🧁🧁 Buy one cupcake, get one FREE, every Tuesday in October. Naturally coloured, always. Tag the friend you'd share with (or not 😉). #BloomBakery #CupcakeTuesday",
+        "checked": [
+          "Approved memory items (colours, tone, BOGO offer, natural colouring rule, channel focus)",
+          "Image copy and layout",
+          "Caption copy and hashtags",
+          "Campaign objective fit"
+        ],
+        "limitations": [
+          "Sorted doesn't store the client's logo files, fonts or past approved posts, so logo and typography were judged only against what the client said in memory.",
+          "Store address / location details were not provided in memory to verify specific store location info."
+        ]
+      }
+    }
+  ],
+  "trends": [],
+  "updatedAt": "2026-10-22T10:18:44.858Z"
+}

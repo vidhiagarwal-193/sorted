@@ -40,7 +40,7 @@ export function summarize(memory?: ClientMemory) {
   const items = memory?.items ?? [];
   return {
     confirmed: items.filter((it) => it.confirmed).length,
-    toReview: items.filter((it) => !it.confirmed).length,
+    toReview: items.filter((it) => !it.confirmed && !it.supersededBy).length,
     conflicts: (memory?.alerts ?? []).filter((a) => !a.dismissed).length,
     live: items.some((it) => it.source === "WhatsApp (live)"),
     offer: items.find((it) => it.confirmed && it.type === "offer")?.text,

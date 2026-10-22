@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, CircleAlert, CircleCheck, Eye, Info, ListChecks, TriangleAlert } from "lucide-react";
+import { ChevronDown, CircleAlert, CircleCheck, Copy, Eye, Info, ListChecks, TriangleAlert } from "lucide-react";
 import type { AreaStatus, Finding, MemoryItem, ReviewResult, Severity, Verdict } from "@/lib/types";
 import { AiTag } from "./ui";
 
@@ -35,7 +35,7 @@ function LocationChip({ location, onJump }: { location: string; onJump?: (locati
   );
 }
 
-function Evidence({ ids, items }: { ids: string[]; items: MemoryItem[] }) {
+export function Evidence({ ids, items }: { ids: string[]; items: MemoryItem[] }) {
   const [open, setOpen] = useState(false);
   const found = ids.map((id) => items.find((it) => it.id === id)).filter((it): it is MemoryItem => Boolean(it));
   if (found.length === 0) return null;
@@ -238,6 +238,9 @@ export function ReviewResults(props: {
         </section>
       )}
 
+      {/* A corrected caption, ready to copy */}
+      {r.suggestedCaption && <SuggestedCaption text={r.suggestedCaption} />}
+
       {/* Fix checklist */}
       {r.fixes.length > 0 && (
         <section className="rounded-2xl border border-line bg-card p-5">
@@ -284,5 +287,34 @@ export function ReviewResults(props: {
         <p className="mt-4 text-[12px] text-muted">Sorted is a review assistant. It never approves, sends or publishes anything. Your team decides.</p>
       </Collapsible>
     </div>
+  );
+}
+
+function SuggestedCaption({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <section className="rounded-2xl border border-accent/40 bg-card p-5">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <h4 className="font-display text-[16px] font-bold">Suggested caption</h4>
+        <button
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(text);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1800);
+            } catch {
+              setCopied(false);
+            }
+          }}
+          className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[13px] font-medium hover:bg-soft"
+        >
+          <Copy size={13} /> {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <p className="whitespace-pre-wrap rounded-xl bg-paper p-3 text-[14px] leading-relaxed">{text}</p>
+      <p className="mt-2 text-[12px] text-muted">
+        Rewritten to fix the findings above using only this client&apos;s approved facts. Read it before using it.
+      </p>
+    </section>
   );
 }

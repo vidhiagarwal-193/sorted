@@ -1,5 +1,6 @@
 import { askAIForJSON, FriendlyError, MODELS } from "./ai";
 import { displayName } from "./clientProfiles";
+import { phonesIn, pricesIn } from "./review";
 import type { CheckResult, MemoryItem } from "./types";
 
 const SYSTEM = `You help a marketing agency that runs clients' INSTAGRAM accounts avoid doing work
@@ -16,6 +17,9 @@ Rules:
 - "reason" is one plain sentence a busy account manager can read in two seconds.
   If ok, say briefly why it fits. If conflict, name what it clashes with.
 - "conflictsWith" lists the ids of the clashing items (empty if ok).
+- "alternative": on a conflict, one sentence suggesting a version of the request that keeps its goal but fits what the
+  client said, using only offers, prices and facts in the memory (for example, a value offer instead of a discount).
+  If ok, use "".
 - You only flag. A human decides.`;
 
 const SCHEMA = {
@@ -24,8 +28,9 @@ const SCHEMA = {
     status: { type: "string", enum: ["ok", "conflict"] },
     reason: { type: "string" },
     conflictsWith: { type: "array", items: { type: "string" } },
+    alternative: { type: "string" },
   },
-  required: ["status", "reason", "conflictsWith"],
+  required: ["status", "reason", "conflictsWith", "alternative"],
   additionalProperties: false,
 };
 
@@ -50,5 +55,14 @@ export async function checkRequest(client: string, request: string, items: Memor
   const ids = new Set(confirmed.map((it) => it.id));
   const conflictsWith = (result.conflictsWith ?? []).filter((id) => ids.has(id));
   const status = result.status === "conflict" && conflictsWith.length > 0 ? "conflict" : "ok";
-  return { status, reason: result.reason, conflictsWith };
+  // The suggestion may only use prices and numbers the client actually gave.
+  const memoryText = confirmed.map((it) => `${it.quote} ${it.text}`).join(" ");
+  let alternative = status === "conflict" ? (result.alternative ?? "").trim() : "";
+  if (
+    phonesIn(alternative).some((p) => !phonesIn(memoryText).some((m) => m.key === p.key)) ||
+    pricesIn(alternative).some((p) => !pricesIn(memoryText).some((m) => m.value === p.value))
+  ) {
+    alternative = "";
+  }
+  return { status, reason: result.reason, conflictsWith, alternative };
 }

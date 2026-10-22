@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
-import { ArrowRight, ScanSearch, TriangleAlert } from "lucide-react";
+import { useMemo, useSyncExternalStore } from "react";
+import { ArrowRight, TriangleAlert } from "lucide-react";
+import { FeedTile, StartTiles, Stories, Workflow, buildFeed } from "@/components/LandingFeed";
 import { VERDICT } from "@/components/ReviewResults";
-import { AiTag, Card, ClientAvatar, Page, SectionTitle, Skeleton } from "@/components/ui";
+import { AiTag, Button, ClientAvatar, Page, Skeleton } from "@/components/ui";
 import { useClients, type ClientProfile } from "@/lib/clients";
+import { loadDemoData } from "@/lib/demoData";
 import { summarize, useAllMemories } from "@/lib/useAllMemories";
-import type { ClientMemory, ReviewRecord } from "@/lib/types";
+import { useStatus } from "@/lib/useStatus";
+import { useStored } from "@/lib/useStored";
+import type { ClientMemory, ReelAnalysis, ReviewRecord } from "@/lib/types";
 
 type Focus = { client: ClientProfile; kind: "conflict" | "creative" | "review" | "start"; title: string; detail: string; action: string };
 
@@ -79,119 +83,140 @@ export default function Overview() {
     { conflicts: 0, toReview: 0, confirmed: 0 },
   );
   const today = useToday();
+  const status = useStatus();
+  const isEmpty = !loading && totals.confirmed === 0 && totals.toReview === 0;
+
+  // Reels the team analysed (kept in this browser by Trend Radar's "Analyse a Reel link")
+  const storedReels = useStored("sorted.reelAnalyses");
+  const reels = useMemo<ReelAnalysis[]>(() => {
+    try {
+      const parsed = JSON.parse(storedReels || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }, [storedReels]);
+  const feed = buildFeed(clients, memories, reels);
+  const latestReel = reels[0];
+  const reelClient = clients.find((c) => c.key === latestReel?.matches[0]?.clientKey);
+  const attention = (c: ClientProfile) => {
+    const s = summarize(memories[c.key]);
+    return s.conflicts + s.toReview;
+  };
 
   return (
     <Page>
-      {/* Welcome */}
-      <section className="relative mb-8 overflow-hidden rounded-3xl bg-ink px-6 py-8 text-paper sm:px-10 sm:py-10">
-        <div className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-accent" aria-hidden="true" />
-        <svg className="absolute right-10 top-8 hidden sm:block" width="72" height="72" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M8.5 16.5l5 5L24 10" fill="none" stroke="#F7F5F0" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <p className="relative text-[13px] text-paper/60">{today}</p>
-        <h1 className="relative mt-2 max-w-xl font-display text-[38px] font-extrabold leading-[1.02] tracking-tight sm:text-[54px]">
-          Let&apos;s get things sorted.
-        </h1>
-        <p className="relative mt-3 max-w-md text-[15px] text-paper/70">
-          Your clients, today&apos;s opportunities, and everything that needs your attention.
-        </p>
-        <dl className="relative mt-8 flex flex-wrap gap-x-10 gap-y-4">
-          <Stat label="Open conflicts" value={totals.conflicts} loading={loading} hot={totals.conflicts > 0} />
-          <Stat label="Details to review" value={totals.toReview} loading={loading} />
-          <Stat label="Details confirmed" value={totals.confirmed} loading={loading} />
-          <Stat label="Clients" value={clients.length} loading={false} />
-        </dl>
+      {/* Hero: the brand line, today's numbers, and clients as Stories */}
+      <section className="mb-8">
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+          <div className="min-w-0">
+            <p className="mb-2 flex items-center gap-2 text-[13px] text-muted">
+              {today && <span>{today}</span>}
+              <AiTag>Sorted is watching your clients</AiTag>
+            </p>
+            <h1 className="font-display text-[42px] font-extrabold leading-[0.98] tracking-tight sm:text-[64px]">
+              Less chasing.
+              <br />
+              <span className="text-accent-deep">More creating.</span>
+            </h1>
+          </div>
+          <dl className="flex gap-6 sm:gap-8">
+            <Stat label="Conflicts" value={totals.conflicts} loading={loading} hot={totals.conflicts > 0} />
+            <Stat label="To review" value={totals.toReview} loading={loading} />
+            <Stat label="Known details" value={totals.confirmed} loading={loading} />
+            <Stat label="Clients" value={clients.length} loading={false} />
+          </dl>
+        </div>
+        <div className="mt-6 border-y border-line py-4">
+          <Stories clients={clients} attention={attention} />
+        </div>
       </section>
 
-      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1.6fr_1fr]">
-        {/* Today's focus */}
-        <section className="min-w-0">
-          <SectionTitle aside={loading ? "" : `${focus.length} item${focus.length === 1 ? "" : "s"}`}>Today&apos;s focus</SectionTitle>
+      {/* First visit: offer demo data so the app can be tried in one click */}
+      {isEmpty && status && !status.github && (
+        <section className="landing-pop mb-8 flex flex-col gap-4 rounded-2xl border border-accent/40 bg-sage p-5 sm:flex-row sm:items-center">
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-[18px] font-bold">New here? Try Sorted with demo data</p>
+            <p className="mt-1 text-[14px] text-ink/80">
+              Loads three made-up clients (Spice Route, Bloom Bakery, Ivy &amp; Thread) with confirmed brand memory, real
+              Instagram trend scans and content reviews, so you can click around right away. Saved in this browser only.
+            </p>
+          </div>
+          <Button
+            onClick={() => {
+              loadDemoData();
+              window.location.reload();
+            }}
+          >
+            Load demo data
+          </Button>
+        </section>
+      )}
+
+      <Workflow reel={latestReel} client={reelClient} />
+
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+        {/* Needs you (Today's focus): first on phones, a side column on desktop */}
+        <aside className="lg:order-2 lg:sticky lg:top-6 lg:self-start">
+          <div className="mb-3 flex items-baseline justify-between gap-2">
+            <h2 className="font-display text-[19px] font-bold tracking-tight">Needs you</h2>
+            <span className="text-[12px] text-muted">{loading ? "" : focus.length ? `${focus.length} today` : "all clear"}</span>
+          </div>
           {loading ? (
-            <div className="flex flex-col gap-3">
-              <Skeleton className="h-24" />
-              <Skeleton className="h-24" />
+            <div className="flex flex-col gap-2">
+              <Skeleton className="h-16" />
+              <Skeleton className="h-16" />
             </div>
           ) : focus.length === 0 ? (
-            <Card className="p-6">
-              <p className="font-display text-[17px] font-bold">All sorted.</p>
-              <p className="mt-1 text-[14px] text-muted">No conflicts and nothing waiting for review.</p>
-            </Card>
+            <p className="rounded-2xl border border-line bg-card p-4 text-[14px]">
+              <span className="font-display font-bold">All sorted.</span> <span className="text-muted">No conflicts and nothing to review.</span>
+            </p>
           ) : (
-            <ol className="flex flex-col gap-3">
-              {focus.map((f, i) => (
-                <li key={i} className="rise" style={{ animationDelay: `${i * 40}ms` }}>
-                  <Link
-                    href={`/clients/${f.client.slug}`}
-                    className={`group flex items-start gap-4 rounded-2xl border bg-card p-4 transition hover:border-ink/30 hover:shadow-[0_8px_24px_-14px_rgba(48,44,40,0.3)] sm:p-5 ${
-                      f.kind === "conflict" ? "border-alert/30" : "border-line"
-                    }`}
-                  >
-                    <ClientAvatar client={f.client} size={40} />
-                    <div className="min-w-0 flex-1">
-                      <div className="mb-1 flex flex-wrap items-center gap-2">
-                        <span className="text-[13px] font-semibold">{f.client.name}</span>
-                        {f.kind === "conflict" && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-alert-soft px-2 py-0.5 text-[11px] font-semibold text-alert-ink">
-                            <TriangleAlert size={11} /> Conflict
-                          </span>
-                        )}
-                        {f.kind === "review" && <AiTag>Found by AI</AiTag>}
-                        {f.kind === "creative" && <AiTag>Content review</AiTag>}
-                      </div>
-                      <p className="truncate font-display text-[17px] font-bold leading-snug">{f.title}</p>
-                      <p className="mt-0.5 line-clamp-2 text-[13px] text-muted">{f.detail}</p>
-                    </div>
-                    <span className="hidden shrink-0 items-center gap-1 self-center text-[13px] font-semibold sm:flex">
-                      {f.action} <ArrowRight size={15} className="transition group-hover:translate-x-0.5" />
+            <ol className="flex flex-col divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
+              {focus.slice(0, 8).map((f, i) => (
+                <li key={i}>
+                  <Link href={`/clients/${f.client.slug}`} className="group flex items-start gap-3 px-4 py-3 transition hover:bg-soft/60">
+                    <ClientAvatar client={f.client} size={32} />
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-1.5 text-[12px] text-muted">
+                        {f.kind === "conflict" && <TriangleAlert size={12} className="text-alert-ink" />}
+                        {f.client.name}
+                      </span>
+                      <span className="block truncate text-[14px] font-semibold leading-snug">{f.title}</span>
+                      <span className="mt-0.5 flex items-center gap-1 text-[12px] font-semibold text-accent-deep">
+                        {f.action} <ArrowRight size={12} className="transition group-hover:translate-x-0.5" />
+                      </span>
                     </span>
                   </Link>
                 </li>
               ))}
             </ol>
           )}
-        </section>
+        </aside>
 
-        {/* Latest content reviews across all clients */}
-        <section>
-          <SectionTitle>Recent reviews</SectionTitle>
-          {(() => {
-            const recent = clients
-              .flatMap((client) => latestPerCreative(memories[client.key]?.reviews).map((r) => ({ client, r })))
-              .sort((a, b) => b.r.createdAt.localeCompare(a.r.createdAt))
-              .slice(0, 5);
-            if (loading) return <Skeleton className="h-40" />;
-            if (recent.length === 0) {
-              return (
-                <Card className="p-6">
-                  <ScanSearch size={22} className="text-muted" />
-                  <p className="mt-3 font-display text-[17px] font-bold">No content reviewed yet</p>
-                  <p className="mt-1 text-[14px] text-muted">
-                    Before a post, carousel or Reel goes to a client, check it against everything Sorted knows about them.
-                  </p>
-                  <Link href="/review" className="mt-4 inline-flex text-[13px] font-semibold underline decoration-accent decoration-2 underline-offset-4">
-                    Review a creative
-                  </Link>
-                </Card>
-              );
-            }
-            return (
-              <Card className="divide-y divide-line">
-                {recent.map(({ client, r }) => (
-                  <Link key={r.id} href={`/clients/${client.slug}`} className="flex items-center gap-3 px-4 py-3 transition hover:bg-soft/60">
-                    <ClientAvatar client={client} size={34} />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[14px] font-medium">{r.creative.files.join(", ")}</span>
-                      <span className="flex items-center gap-1.5 text-[12px] text-muted">
-                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${VERDICT[r.result.verdict].dot}`} />
-                        {VERDICT[r.result.verdict].label} · v{r.version} · {client.name}
-                      </span>
-                    </span>
-                  </Link>
-                ))}
-              </Card>
-            );
-          })()}
+        {/* The feed: real ideas, Reels, reviews, conflicts and live messages */}
+        <section className="min-w-0 lg:order-1" aria-label="Feed">
+          <div className="mb-3 flex items-baseline justify-between gap-2">
+            <h2 className="font-display text-[19px] font-bold tracking-tight">Your feed, but it works for you</h2>
+            <span className="hidden text-[12px] text-muted sm:inline">Tap &ldquo;Why this?&rdquo; to see the AI&apos;s reasoning</span>
+          </div>
+          {loading ? (
+            <div className="grid grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2">
+              <Skeleton className="h-72" />
+              <Skeleton className="h-56" />
+            </div>
+          ) : feed.length === 0 ? (
+            <>
+              <p className="mb-3 text-[14px] text-muted">Nothing in the feed yet. Start anywhere: it fills up as Sorted learns your clients.</p>
+              <StartTiles />
+            </>
+          ) : (
+            <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
+              {feed.map((item, i) => (
+                <FeedTile key={`${item.kind}-${i}`} item={item} i={i} />
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </Page>
@@ -201,8 +226,8 @@ export default function Overview() {
 function Stat({ label, value, loading, hot }: { label: string; value: number; loading: boolean; hot?: boolean }) {
   return (
     <div>
-      <dt className="text-[12px] text-paper/55">{label}</dt>
-      <dd className={`font-display text-[30px] font-bold leading-tight ${hot ? "text-accent" : ""}`}>{loading ? "–" : value}</dd>
+      <dt className="text-[11px] font-semibold uppercase tracking-wider text-muted">{label}</dt>
+      <dd className={`font-display text-[30px] font-bold leading-tight tabular-nums ${hot ? "text-alert-ink" : ""}`}>{loading ? "–" : value}</dd>
     </div>
   );
 }

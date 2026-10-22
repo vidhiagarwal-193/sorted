@@ -1,0 +1,364 @@
+{
+  "client": "Client A",
+  "items": [
+    {
+      "id": "d835eb68-801b-43ea-ba96-22a364f09158",
+      "type": "preference",
+      "text": "Use warm colours, maroon and gold only.",
+      "quote": "we love warm colours, maroon and gold only please",
+      "date": "28 Aug 2026",
+      "source": "WhatsApp",
+      "original": "28/08/2026, 11:07 - Priya (Spice Route): Quick brief: we love warm colours, maroon and gold only please",
+      "confirmed": true
+    },
+    {
+      "id": "3b55c9b0-a7ea-4b3d-bcdd-acd9b4cacd3f",
+      "type": "dont",
+      "text": "Never use stock images; always show real food.",
+      "quote": "always show real food photos, never stock images",
+      "date": "28 Aug 2026",
+      "source": "WhatsApp",
+      "original": "28/08/2026, 11:08 - Priya (Spice Route): And always show real food photos, never stock images",
+      "confirmed": true
+    },
+    {
+      "id": "3ccb083d-1602-4ddd-ac89-a70e83345850",
+      "type": "preference",
+      "text": "Keep tone classy with max one emoji per post.",
+      "quote": "Keep the tone classy, max one emoji per post",
+      "date": "1 Sep 2026",
+      "source": "WhatsApp",
+      "original": "01/09/2026, 17:12 - Priya (Spice Route): Looks nice but too many emojis. Keep the tone classy, max one emoji per post",
+      "confirmed": true
+    },
+    {
+      "id": "dbbe95c0-a97f-40c6-afe8-0365109840f2",
+      "type": "preference",
+      "text": "Post at 7pm when regulars are online.",
+      "quote": "post at 7pm, that's when our regulars are online",
+      "date": "1 Sep 2026",
+      "source": "WhatsApp",
+      "original": "01/09/2026, 17:13 - Priya (Spice Route): Also post at 7pm, that's when our regulars are online",
+      "confirmed": true
+    },
+    {
+      "id": "538de6af-0ae0-427b-932b-4c888d9374db",
+      "type": "dont",
+      "text": "Do not post or run discounts.",
+      "quote": "No discounts, it cheapens our brand",
+      "date": "3 Sep 2026",
+      "source": "WhatsApp",
+      "original": "03/09/2026, 10:20 - Priya (Spice Route): No discounts, it cheapens our brand",
+      "confirmed": true
+    },
+    {
+      "id": "e9174813-9d95-421d-85e7-10a1ed62d035",
+      "type": "offer",
+      "text": "Offer free dessert with every thali.",
+      "quote": "free dessert with every thali",
+      "date": "3 Sep 2026",
+      "source": "WhatsApp",
+      "original": "03/09/2026, 10:21 - Priya (Spice Route): We'd rather push value, like the free dessert with every thali",
+      "confirmed": true
+    },
+    {
+      "id": "13713012-afd8-4e9a-a8e9-022ffa5da9bc",
+      "type": "offer",
+      "text": "Festive Thali at \u20b9499 featured until 31 October.",
+      "quote": "This month we're featuring the Festive Thali at \u20b9499, please highlight it in every post till 31 Oct",
+      "date": "8 Sep 2026",
+      "source": "WhatsApp",
+      "original": "08/09/2026, 12:30 - Priya (Spice Route): This month we're featuring the Festive Thali at \u20b9499, please highlight it in every post till 31 Oct",
+      "confirmed": true
+    },
+    {
+      "id": "74f23fd2-a2da-40e8-83a2-fd74d1a61d3d",
+      "type": "decision",
+      "text": "Use the new leaf logo; old round logo retired.",
+      "quote": "Final decision: new leaf logo from now on, the old round logo is retired",
+      "date": "15 Sep 2026",
+      "source": "WhatsApp",
+      "original": "15/09/2026, 18:30 - Priya (Spice Route): Final decision: new leaf logo from now on, the old round logo is retired",
+      "confirmed": true
+    },
+    {
+      "id": "c00416b2-9191-4752-9ea2-a7c940b3094b",
+      "type": "dont",
+      "text": "Never mention or compare with other restaurants.",
+      "quote": "never mention other restaurants or compare us with anyone",
+      "date": "15 Sep 2026",
+      "source": "WhatsApp",
+      "original": "15/09/2026, 18:31 - Priya (Spice Route): And please never mention other restaurants or compare us with anyone",
+      "confirmed": true
+    }
+  ],
+  "alerts": [],
+  "reviews": [],
+  "trends": [
+    {
+      "id": "0cc89597-abc7-48eb-97c1-364e9bfb47a6",
+      "createdAt": "2026-10-22T10:34:59.907Z",
+      "hashtags": [
+        "indianthali",
+        "festivethali",
+        "desifoodie",
+        "indianfinedining"
+      ],
+      "skippedHashtags": [],
+      "postsAnalysed": 71,
+      "windowDays": 14,
+      "signals": {
+        "audio": [],
+        "hashtags": [
+          {
+            "tag": "festivethali",
+            "posts": 5
+          },
+          {
+            "tag": "desifoodie",
+            "posts": 3
+          }
+        ],
+        "reelShare": 0.85,
+        "bestHours": ""
+      },
+      "ideas": [
+        {
+          "id": "333c5366-49be-4a27-84d7-2466751411af",
+          "title": "The Festive Dining Experience",
+          "trend": "Celebratory festive thali presentation reels featuring traditional festive background music and family dining ambience.",
+          "format": "Reel",
+          "hook": "An evening designed for true celebration.",
+          "captionStarter": "Gather your loved ones tonight for an authentic dining experience with our Festive Thali at \u20b9499, served with a complimentary handcrafted dessert.",
+          "hashtags": [
+            "festivethali",
+            "desifoodie",
+            "indianfood",
+            "traditionalfood"
+          ],
+          "audio": "Festive Vibes \u00b7 Vinod Venugopal Acharya",
+          "plan": [
+            "0\u20132s: Wide panning shot of an elegant dinner table dressed in maroon and gold linens with the new leaf logo subtly etched on the brass tableware.",
+            "2\u20134s: Smooth top-down view of the real, freshly prepared Festive Thali placed gracefully on the table.",
+            "4\u20136s: Warm, close-up shot of the complimentary dessert being served beside the thali under warm ambient lighting.",
+            "6\u20138s: Final frame highlighting the curated table setting with warm gold accents and on-screen text inviting guests for dinner."
+          ],
+          "postWhen": "Post at 7:00 PM as specified in memory for when regulars are online.",
+          "whyItFits": "The client asked to highlight the Festive Thali at \u20b9499 in every post and provide free dessert with every thali. This elegant reel embraces their required maroon and gold palette while keeping a sophisticated tone.",
+          "evidence": [
+            "13713012-afd8-4e9a-a8e9-022ffa5da9bc",
+            "e9174813-9d95-421d-85e7-10a1ed62d035",
+            "d835eb68-801b-43ea-ba96-22a364f09158",
+            "dbbe95c0-a97f-40c6-afe8-0365109840f2",
+            "74f23fd2-a2da-40e8-83a2-fd74d1a61d3d",
+            "3ccb083d-1602-4ddd-ac89-a70e83345850",
+            "3b55c9b0-a7ea-4b3d-bcdd-acd9b4cacd3f"
+          ],
+          "proof": [
+            {
+              "id": "4009896903779384583",
+              "url": "https://www.instagram.com/p/DemA_0XtX0H/",
+              "kind": "reel",
+              "postedAt": "2026-10-17T11:43:43.000Z",
+              "likes": 4578,
+              "comments": 4,
+              "plays": 100542,
+              "audio": "Dhak Baja Kashor Baja \u00b7 Shreya Ghoshal",
+              "hashtags": [
+                "shivani",
+                "durgapujaspecial",
+                "shubhodurgapuja",
+                "bengali",
+                "festivethali"
+              ],
+              "caption": "\ud83c\udf3a\ud83e\udd41 Shubho Sharodiya! \u09b6\u09c1\u09ad \u09b6\u09be\u09b0\u09a6\u09c0\u09af\u09bc\u09be \u2764\ufe0f\u2728 May Maa Durga bless every home with happiness, prosperity, good health & endless love. \ud83d\ude4f\ud83d\udd31 \u09b6\u09c1\u09ad \u09a6\u09c1\u09b0\u09cd\u0997\u09be\u09aa\u09c2\u099c\u09be! \u2764\ufe0f\ud83c\udf3a Happy Durga Puja! \ud83e\udeb7\u2728 \u2728 Bengali Durga Puja Bhog Special \u2728 \ud83c\udf5a Bhoger",
+              "owner": "shivani_kitchen_shorts",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t15.5256-10/852298174_1452692596991774_7061959871965017490_n.jpg?stp=dst-jpg_e15_p360x360_tt6&_nc_cat=109&ig_cache_key=NDAwOTg5NjkwMzc3OTM4NDU4Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZmlyc3RfZnJhbWVfdGh1bWJuYWlsLkMzIn0%3D&_nc_ohc=OOvDgJXgxS0Q7kNvwGkpDVv&_nc_oc=Adrd3TKDc11A9kLxGjcbpMt9-RgVUwGfsk9kHPADq9YLFOmz4WTWv5-XubSAzFz3bgY&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=lTdEV8b_p-rBgcyacW05vA&_nc_ss=7a3ba&oh=00_AQMwr1NJ3_f7MQ-Omo2uEFm8zsM33Cwfbi3U3NJUlNgg4g&oe=6ADFA34B",
+              "score": 80.9
+            },
+            {
+              "id": "4012821577655071568",
+              "url": "https://www.instagram.com/p/DewZ_bLJzNQ/",
+              "kind": "reel",
+              "postedAt": "2026-10-21T12:30:16.000Z",
+              "likes": 18,
+              "comments": 0,
+              "plays": 1343,
+              "audio": "Festive Vibes \u00b7 Vinod Venugopal Acharya",
+              "hashtags": [
+                "dussehraspecial",
+                "dussehrathali",
+                "vijayadashami",
+                "festivethali",
+                "indianfood"
+              ],
+              "caption": "\ud83d\ude4f\u2728 Celebrating the victory of good over evil with my Dussehra Special Thali \ud83e\ude94\u2764\ufe0f A festive thali made with love, devotion and the joy of celebration! \ud83c\udf38\ud83c\udf7d\ufe0f May this Dussehra bring happiness, prosperity and positivity in",
+              "owner": "ihimanigupta",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/858873900_1459391119455951_1564993524930974377_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=101&ig_cache_key=NDAxMjgyMTU3NzY1NTA3MTU2ODE0NTkzOTExMTI3ODkyODU%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjU0MC5zZHIudmlkZW9fdXNlcl91cGxvYWRlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=u012LhknUxYQ7kNvwENkbKU&_nc_oc=Adpc7sKhdVQ1EmcRUeLQbtLCh0ycvN1p66TG6mpqDE6Er4FY7tYia_VJiWkYoK_m9WM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=lTdEV8b_p-rBgcyacW05vA&_nc_ss=7a3ba&oh=00_AQOf1s5ChehHfDCLTAPTWvAzRi7kMbhgTgRrF8_jvRhkQQ&oe=6ADFBAA1",
+              "score": 3.9
+            }
+          ],
+          "status": "new"
+        },
+        {
+          "id": "9c2c3c0d-25c2-4519-96d3-cc9d757d16e7",
+          "title": "Heritage on a Plate",
+          "trend": "Multi-slide gallery breaking down traditional festive recipes and thali pairings with high engagement comments.",
+          "format": "Carousel",
+          "hook": "A closer look into timeless tradition.",
+          "captionStarter": "Explore the balanced heritage recipes that complete our Festive Thali at \u20b9499, served alongside a complimentary dessert.",
+          "hashtags": [
+            "festivethali",
+            "desifoodie",
+            "indianthali",
+            "traditionalfood"
+          ],
+          "audio": "",
+          "plan": [
+            "Slide 1: High-resolution cover photo of the complete Festive Thali on a maroon background with elegant gold serif typography and the leaf logo.",
+            "Slide 2: Crisp close-up of the fragrant spiced curries and slow-simmered lentils with a brief note on traditional spices.",
+            "Slide 3: Close-up of hot artisan flatbreads and fragrant steamed basmati rice.",
+            "Slide 4: Feature of the complimentary artisanal dessert included with every thali.",
+            "Slide 5: Final slide in maroon and gold detailing the Festive Thali at \u20b9499, with a refined call to join us for dinner tonight."
+          ],
+          "postWhen": "Post at 7:00 PM as specified in approved memory.",
+          "whyItFits": "Carousels featuring traditional thali elements drive high saves and comments. It adheres strictly to the client's rules of genuine food photography, classy styling, and the mandatory \u20b9499 Festive Thali feature.",
+          "evidence": [
+            "13713012-afd8-4e9a-a8e9-022ffa5da9bc",
+            "e9174813-9d95-421d-85e7-10a1ed62d035",
+            "3b55c9b0-a7ea-4b3d-bcdd-acd9b4cacd3f",
+            "d835eb68-801b-43ea-ba96-22a364f09158",
+            "74f23fd2-a2da-40e8-83a2-fd74d1a61d3d",
+            "dbbe95c0-a97f-40c6-afe8-0365109840f2",
+            "3ccb083d-1602-4ddd-ac89-a70e83345850"
+          ],
+          "proof": [
+            {
+              "id": "4011197919377773044",
+              "url": "https://www.instagram.com/p/Deqo0FkTFH0/",
+              "kind": "post",
+              "postedAt": "2026-10-19T06:41:19.000Z",
+              "likes": 100,
+              "comments": 129,
+              "plays": 0,
+              "audio": "",
+              "hashtags": [
+                "kanyapujan",
+                "navratrifood",
+                "kanjakprasad",
+                "festivethali",
+                "sattvikfood"
+              ],
+              "caption": "The ultimate trio: Halwa, Poori, and Sukha Kala Chana. \ud83c\udf38\u2728 Nothing beats the comforting taste of this holy combination. Wishing you all a blessed Navami! \ud83d\udd31\u2764\ufe0f #KanyaPujan #NavratriFood #KanjakPrasad #FestiveThali #Sattvi",
+              "owner": "spicytreatwithrenu",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/849771868_17994976008045685_2244200393837173762_n.webp?stp=dst-webp_s1080x1080&_nc_cat=106&ig_cache_key=NDAxMTE5NzkxOTM3Nzc3MzA0NA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=vv8s-RqkXtsQ7kNvwHmSA2a&_nc_oc=AdqMPsJT-dF5xClKY6fnnII3lk3bkU-z4CJZjTrpRtawtdaZSk00svPyjKIVa_EdM08&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=B5CtdaiCyCico2IRSwj59A&_nc_ss=7a3ba&oh=00_AQP_CaQqfqfixRJH8Is5Z6Pq3_r4YxRbEKaDMZeTPDu5Lg&oe=6ADFB7F5",
+              "score": 6.4
+            },
+            {
+              "id": "4005404190662033293",
+              "url": "https://www.instagram.com/p/DeWDePORX-N/",
+              "kind": "reel",
+              "postedAt": "2026-10-11T06:50:33.000Z",
+              "likes": 2713,
+              "comments": 15,
+              "plays": 333357,
+              "audio": "Kathaiya Rang Tikuliya \u00b7 Priyanka Singh, Shubham Tiwari, Santosh Utpati, Rajnish Mishra",
+              "hashtags": [
+                "biharithali",
+                "traditionalfood",
+                "desifood",
+                "biharifood",
+                "indianthali"
+              ],
+              "caption": "#BihariThali #TraditionalFood #DesiFood #BihariFood #IndianThali HomeCooking PurvanchalFood BiharSe DesiKhana BihariZayka SwadBiharKa BihariRecipe ReelKaroFeelKaro FoodReelsIndia InstaFood DesiVibes FoodieGram ExplorePag",
+              "owner": "indian_thali_hub",
+              "thumbnail": "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/848196112_18082525352650935_5364181777641704273_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=101&ig_cache_key=NDAwNTQwNDE5MDY2MjAzMzI5MzE4MDgyNTI1MzQ2NjUwOTM1.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjYxMC5zZHIudmlkZW9fdXNlcl91cGxvYWRlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=lIu7Vpx7fIsQ7kNvwHwEmzW&_nc_oc=Adp_wo6BHo5oMo8iGU12vFxlELuZ2Wf-g8_-j6xQYD9-Gk2wIR2efh3H8npE3InXVicK5rOoJl3SPUuf-P78pZm9&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=Ajm1aLCEOTMAWkO42oNINA&_nc_ss=7a3ba&oh=00_AQMFK2YzDtVTL6hoEAgoGW-aprgFY-oxVqYTNB5RnV0u2Q&oe=6ADFAD84",
+              "score": 72.6
+            }
+          ],
+          "status": "new"
+        },
+        {
+          "id": "a3bd003f-87ea-4fcb-bfbc-68c49016a7e6",
+          "title": "An Evening of Indian Fine Dining",
+          "trend": "Atmospheric, luxurious dining aesthetic highlighting warm hospitality and curated seasonal menus.",
+          "format": "Reel",
+          "hook": "Dine amidst tradition and warmth tonight.",
+          "captionStarter": "Immerse yourself in refined culinary craftsmanship with our signature Festive Thali at \u20b9499, complete with our complimentary dessert.",
+          "hashtags": [
+            "festivethali",
+            "desifoodie",
+            "indianthali"
+          ],
+          "audio": "Ghar More Pardesiya \u00b7 Pritam, Shreya Ghoshal",
+          "plan": [
+            "0\u20132s: Slow zoom past a warm golden tea light onto the inviting restaurant setting adorned in deep maroon accents.",
+            "2\u20134s: Real food shot of steaming katoris being settled into the gleaming Festive Thali.",
+            "4\u20136s: Delicate pour of fragrant ghee over hot bread in rich, warm lighting.",
+            "6\u20138s: Elegant closing frame showcasing the full spread alongside the complimentary sweet, marked with the new leaf logo."
+          ],
+          "postWhen": "Post at 7:00 PM per the client's preferred regular schedule.",
+          "whyItFits": "Top posts show fine dining atmospheres and cultural audios perform well. This honors the client's request for an elevated tone, warm brand colors, and the leaf logo.",
+          "evidence": [
+            "13713012-afd8-4e9a-a8e9-022ffa5da9bc",
+            "e9174813-9d95-421d-85e7-10a1ed62d035",
+            "d835eb68-801b-43ea-ba96-22a364f09158",
+            "74f23fd2-a2da-40e8-83a2-fd74d1a61d3d",
+            "dbbe95c0-a97f-40c6-afe8-0365109840f2",
+            "3ccb083d-1602-4ddd-ac89-a70e83345850"
+          ],
+          "proof": [
+            {
+              "id": "4013049255573968145",
+              "url": "https://www.instagram.com/p/DexNwkwodUR/",
+              "kind": "reel",
+              "postedAt": "2026-10-21T20:10:11.000Z",
+              "likes": 76,
+              "comments": 20,
+              "plays": 328,
+              "audio": "Blue Moon \u00b7 Zara Larsson",
+              "hashtags": [
+                "benares",
+                "benaresmayfair",
+                "londonfood",
+                "luxurylondon",
+                "ukfoodie"
+              ],
+              "caption": "A beautiful lunch at Benares, Mayfair \u2728 Michelin-starred Indian fine dining in the heart of Mayfair, champagne & the most stunning interior. The kind of lunch you think about for weeks after. We ate from the Deluxe Menu ",
+              "owner": "zoeeats_x",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/859698098_17972192652191937_4405114147018327506_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=106&ig_cache_key=NDAxMzA0OTI1NTU3Mzk2ODE0NTE3OTcyMTkyNjQ5MTkxOTM3.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjc2MC5zZHIudmlkZW9fdXNlcl91cGxvYWRlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=4UNJvY03bQ0Q7kNvwEGkbl-&_nc_oc=Adr34udU9Lgqk6SkPHkC59ZF-nNY5DB4ht4DyHCR-fFabVScPsMKyjS-hbaYWqORQsM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=AcwFs_z2vFHKyAgEOPAPcQ&_nc_ss=7a3ba&oh=00_AQP-rzpENDqkEfTGKJWhV8sRpmEWcxXvENsgqIVGnOCAtQ&oe=6ADFA8AF",
+              "score": 10.6
+            },
+            {
+              "id": "4012196291250607502",
+              "url": "https://www.instagram.com/p/DeuL0T1IdWO/",
+              "kind": "reel",
+              "postedAt": "2026-10-20T15:49:02.000Z",
+              "likes": 44,
+              "comments": 8,
+              "plays": 1027,
+              "audio": "Ghar More Pardesiya \u00b7 Pritam, Shreya Ghoshal",
+              "hashtags": [
+                "dussehraspecial",
+                "dasarathali",
+                "festivethali",
+                "maharashtrianthali",
+                "maharashtrianfood"
+              ],
+              "caption": "\ud83c\udf3c\u2728 \u0926\u0938\u0931\u094d\u092f\u093e\u091a\u093e \u0938\u0923, \u0906\u0928\u0902\u0926\u093e\u091a\u093e \u0915\u094d\u0937\u0923 \u0906\u0923\u093f \u0918\u0930\u091a\u094d\u092f\u093e \u0918\u0930\u0940 \u092c\u0928\u0935\u0932\u0947\u0932\u0940 \u0916\u093e\u0938 \u092a\u093e\u0930\u0902\u092a\u0930\u093f\u0915 \u0925\u093e\u0933\u0940! \ud83e\ude94\ud83d\udc9b \u091a\u0935\u093f\u0937\u094d\u091f \u092a\u0926\u093e\u0930\u094d\u0925\u093e\u0902\u091a\u0940 \u092e\u0947\u091c\u0935\u093e\u0928\u0940 \u0906\u0923\u093f \u0938\u0923\u093e\u091a\u093e \u0917\u094b\u0921\u0935\u093e\u2026 \ud83d\ude0d\ud83c\udf7d\ufe0f \u0924\u0941\u092e\u094d\u0939\u093e \u0938\u0930\u094d\u0935\u093e\u0902\u0928\u093e \u0926\u0938\u0931\u094d\u092f\u093e\u091a\u094d\u092f\u093e \u0939\u093e\u0930\u094d\u0926\u093f\u0915 \u0936\u0941\u092d\u0947\u091a\u094d\u091b\u093e! \ud83c\udf3f\ud83d\udc9b \u0939\u0940 \u0926\u0938\u0930\u093e \u0938\u094d\u092a\u0947\u0936\u0932 \u0925\u093e\u0933\u0940 \u0915\u0936\u0940 \u0935\u093e\u091f\u0932\u0940? \u0915\u092e\u0947\u0902\u091f \u0915\u0930\u0942\u0928 \u0928\u0915",
+              "owner": "kishoris_kitchen14",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.71878-15/856907157_1450432117011383_7046468517619732131_n.jpg?stp=dst-jpg_e15_p360x360_tt6&_nc_cat=107&ig_cache_key=NDAxMjE5NjI5MTI1MDYwNzUwMjExNTI1OTYyMzA1MjU3NjA%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=gj0sJWd2DxAQ7kNvwEJ5scq&_nc_oc=AdqLzsBneZmRg0NRJZQ7WwmZWTxkTIqgXzQIgyBtrfvCx_Z08BlGslZg84RpH1vMnq0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=lTdEV8b_p-rBgcyacW05vA&_nc_ss=7a3ba&oh=00_AQOaqZr7D5Emxq05-WaptbirWEhWwGhxxqGEDArM4-Hd2w&oe=6ADFAF1A",
+              "score": 2.8
+            }
+          ],
+          "status": "new"
+        }
+      ],
+      "limitations": [
+        "Based on 71 public posts and Reels from the last 14 days under these hashtags: a sample of each niche, not all of Instagram.",
+        "Trends come from the hashtags searched. Instagram doesn't publish its own trending list."
+      ]
+    }
+  ],
+  "updatedAt": "2026-10-22T10:18:44.384Z"
+}

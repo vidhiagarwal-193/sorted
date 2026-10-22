@@ -65,6 +65,9 @@ Rules for findings:
   Use "unknown" when memory or context gives you nothing to judge against.
 - "checked" lists what you actually analysed. "limitations" lists anything you could not check.
 - If PREVIOUS FINDINGS are given, this is a revised version: for each one say whether it is resolved, still_present or unclear.
+- "suggestedCaption": if a caption was given, rewrite it so it fixes every finding and follows APPROVED MEMORY (tone,
+  emoji rules, banned words, offers, facts, hashtags). Use only prices, numbers and facts that are in APPROVED MEMORY.
+  Keep it a real Instagram caption the team could post. If no caption was given, use "".
 - "headline" is one plain sentence a busy account manager can read in two seconds.
 You are a review assistant. You never approve or publish anything; a human decides.`;
 
@@ -117,6 +120,7 @@ const SCHEMA = {
       },
     },
     fixes: { type: "array", items: { type: "string" } },
+    suggestedCaption: { type: "string" },
     textFound: { type: "string" },
     checked: { type: "array", items: { type: "string" } },
     limitations: { type: "array", items: { type: "string" } },
@@ -130,7 +134,7 @@ const SCHEMA = {
       },
     },
   },
-  required: ["headline", "areas", "findings", "missing", "positives", "fixes", "textFound", "checked", "limitations", "previous"],
+  required: ["headline", "areas", "findings", "missing", "positives", "fixes", "suggestedCaption", "textFound", "checked", "limitations", "previous"],
   additionalProperties: false,
 };
 
@@ -167,10 +171,10 @@ const PHONE = /\+?\d[\d\s().-]{7,}\d/g;
 const PRICE = /(?:₹|\brs\.?|\binr)\s?(\d[\d,]*(?:\.\d+)?)/gi;
 
 // Phone-like numbers, compared by their last 10 digits so "+91 98200 11223" equals "9820011223".
-function phonesIn(text: string) {
+export function phonesIn(text: string) {
   return [...text.matchAll(PHONE)].map((m) => ({ shown: m[0].trim(), key: digitsOf(m[0]).slice(-10) })).filter((p) => p.key.length === 10);
 }
-function pricesIn(text: string) {
+export function pricesIn(text: string) {
   return [...text.matchAll(PRICE)].map((m) => ({ shown: m[0].trim(), value: Number(m[1].replace(/,/g, "")) })).filter((p) => p.value > 0);
 }
 const unique = <T,>(list: T[], key: (t: T) => string | number) => [...new Map(list.map((t) => [key(t), t])).values()];
@@ -237,7 +241,7 @@ function positiveIsVerified(point: string, approved: MemoryItem[], findings: Fin
 
 export async function reviewCreative(input: ReviewInput): Promise<ReviewResult> {
   const approved = input.items.filter((it) => it.confirmed);
-  const unconfirmed = input.items.filter((it) => !it.confirmed);
+  const unconfirmed = input.items.filter((it) => !it.confirmed && !it.supersededBy); // replaced instructions are history, not memory
   if (approved.length === 0) {
     throw new FriendlyError(
       `Confirm some of ${input.clientName}'s brand memory first. Reviews compare the creative with confirmed details.`,
@@ -273,8 +277,9 @@ export async function reviewCreative(input: ReviewInput): Promise<ReviewResult> 
     system: SYSTEM,
     user,
     schema: SCHEMA,
-    maxTokens: 16000,
+    maxTokens: 20000,
     media: input.media,
+    effort: "medium", // reviewing against a client's rules is the judgement that matters most
   });
   if (!Array.isArray(ai?.findings) || !ai.areas) throw new FriendlyError("The AI's answer was garbled. Please try again.", 502);
 
@@ -283,13 +288,41 @@ export async function reviewCreative(input: ReviewInput): Promise<ReviewResult> 
   const real = (ids: string[] = []) => ids.filter((id) => known.has(id));
   const aiFindings: Finding[] = ai.findings.map((f) => ({ ...f, id: crypto.randomUUID(), evidence: real(f.evidence) }));
   const creativeText = `${ai.textFound ?? ""}\n${input.context.caption}`;
+
+  // A wrong price or phone number is always critical, whatever severity the AI gave it.
+  const memText = approved.map((it) => `${it.quote} ${it.text}`).join(" ");
+  const wrongNumbers = [
+    ...phonesIn(creativeText).filter((p) => phonesIn(memText).length && !phonesIn(memText).some((m) => m.key === p.key)).map((p) => p.key.slice(-6)),
+    ...pricesIn(creativeText).filter((p) => pricesIn(memText).length && !pricesIn(memText).some((m) => m.value === p.value)).map((p) => String(p.value)),
+  ];
+  for (const f of aiFindings) {
+    const digits = digitsOf(`${f.title} ${f.why}`);
+    if (f.severity !== "critical" && wrongNumbers.some((n) => digits.includes(n))) {
+      f.severity = "critical";
+      f.certainty = "confirmed";
+    }
+  }
   const findings = [...aiFindings, ...factFindings(creativeText, approved, aiFindings, input.clientName)].sort(
     (a, b) => SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity],
   );
   const missing = ai.missing ?? [];
 
+  // The suggested caption is held to the same fact rules as the creative.
+  let suggestedCaption = (ai.suggestedCaption ?? "").trim();
+  const captionLimits: string[] = [];
+  if (suggestedCaption) {
+    const memoryText = approved.map((it) => `${it.quote} ${it.text}`).join(" ");
+    const badPhone = phonesIn(suggestedCaption).some((p) => !phonesIn(memoryText).some((m) => m.key === p.key));
+    const badPrice = pricesIn(suggestedCaption).some((p) => !pricesIn(memoryText).some((m) => m.value === p.value));
+    if (badPhone || badPrice) {
+      suggestedCaption = "";
+      captionLimits.push("A suggested caption was withheld because it used a price or number that isn't in the client's memory.");
+    }
+  }
+
   return {
     verdict: verdictFor(findings, missing),
+    suggestedCaption,
     headline: ai.headline,
     areas: ai.areas,
     findings,
@@ -303,6 +336,7 @@ export async function reviewCreative(input: ReviewInput): Promise<ReviewResult> 
     limitations: [
       ...input.systemLimitations,
       "Sorted doesn't store the client's logo files, fonts or past approved posts, so logo and typography were judged only against what the client said in memory.",
+      ...captionLimits,
       ...(ai.limitations ?? []),
     ],
     previous: input.previousFindings?.length ? (ai.previous ?? []) : undefined,

@@ -1,0 +1,715 @@
+{
+  "client": "Ivy & Thread",
+  "items": [
+    {
+      "id": "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+      "type": "preference",
+      "text": "Use only ivory, sage green, and soft gold colours.",
+      "quote": "Our look is quiet and elegant: ivory, sage green and soft gold only.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Our look is quiet and elegant: ivory, sage green and soft gold only. Never red or neon colours.",
+      "confirmed": true
+    },
+    {
+      "id": "ffb3cf06-2152-409c-9bf8-ea9066b7a865",
+      "type": "dont",
+      "text": "Never use red or neon colours.",
+      "quote": "Never red or neon colours.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Our look is quiet and elegant: ivory, sage green and soft gold only. Never red or neon colours.",
+      "confirmed": true
+    },
+    {
+      "id": "bbfbeab7-e040-4cca-9fdc-9b9b209083e8",
+      "type": "preference",
+      "text": "Keep Instagram caption tone calm and refined.",
+      "quote": "Tone should be calm and refined.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Tone should be calm and refined. Please never use words like \"cheap\", \"cheapest\" or \"steal\", and no all-caps shouting.",
+      "confirmed": true
+    },
+    {
+      "id": "49963829-cd72-4f51-a61f-08f0c7617430",
+      "type": "dont",
+      "text": "Never use cheap, cheapest, steal, or all-caps shouting.",
+      "quote": "Please never use words like \"cheap\", \"cheapest\" or \"steal\", and no all-caps shouting.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Tone should be calm and refined. Please never use words like \"cheap\", \"cheapest\" or \"steal\", and no all-caps shouting.",
+      "confirmed": true
+    },
+    {
+      "id": "fb642b25-a10c-496e-b35f-7fb1a536d0f6",
+      "type": "preference",
+      "text": "Always show close-up shots of fabric texture.",
+      "quote": "Always show the fabric up close, our customers buy on texture.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Always show the fabric up close, our customers buy on texture.",
+      "confirmed": true
+    },
+    {
+      "id": "9cd014eb-47f2-48aa-81b0-95fe297715af",
+      "type": "fact",
+      "text": "Handwoven linen kurta is priced at Rs 2,499.",
+      "quote": "Our hero product this season is the handwoven linen kurta at Rs 2,499.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Our hero product this season is the handwoven linen kurta at Rs 2,499.",
+      "confirmed": true
+    },
+    {
+      "id": "e20c984d-5b49-48cd-bf7c-13216401629d",
+      "type": "fact",
+      "text": "Store address is 14 Linking Road, Bandra West, Mumbai.",
+      "quote": "Store: 14 Linking Road, Bandra West, Mumbai.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Store: 14 Linking Road, Bandra West, Mumbai. WhatsApp orders: +91 98200 11223.",
+      "confirmed": true
+    },
+    {
+      "id": "1663a25c-79b9-4f1c-8604-1b47bb399c60",
+      "type": "fact",
+      "text": "WhatsApp orders number is +91 98200 11223.",
+      "quote": "WhatsApp orders: +91 98200 11223.",
+      "date": "5 Sep 2026",
+      "source": "Email",
+      "original": "Store: 14 Linking Road, Bandra West, Mumbai. WhatsApp orders: +91 98200 11223.",
+      "confirmed": true
+    },
+    {
+      "id": "1973fea6-d291-4a99-8647-c87ce290aad9",
+      "type": "offer",
+      "text": "Free alterations on every kurta valid until 31 Oct.",
+      "quote": "For the festive season our offer is free alterations on every kurta, valid till 31 Oct.",
+      "date": "20 Sep 2026",
+      "source": "Email",
+      "original": "For the festive season our offer is free alterations on every kurta, valid till 31 Oct.",
+      "confirmed": true
+    },
+    {
+      "id": "69d27d07-7a67-47e4-b843-9a7f55a6a35b",
+      "type": "dont",
+      "text": "Discounts capped at 15% on old collection, never on new arrivals.",
+      "quote": "The maximum discount we ever run is 15%, and only on the old collection, never on new arrivals.",
+      "date": "20 Sep 2026",
+      "source": "Email",
+      "original": "The maximum discount we ever run is 15%, and only on the old collection, never on new arrivals.",
+      "confirmed": true
+    },
+    {
+      "id": "2fbf4512-bc63-43da-980f-a73b760bfd60",
+      "type": "decision",
+      "text": "Use full Ivy & Thread wordmark, drop I&T monogram.",
+      "quote": "Final decision: we are dropping the old \"I&T\" monogram. Use the full \"Ivy & Thread\" wordmark from now on.",
+      "date": "20 Sep 2026",
+      "source": "Email",
+      "original": "Final decision: we are dropping the old \"I&T\" monogram. Use the full \"Ivy & Thread\" wordmark from now on.",
+      "confirmed": true
+    }
+  ],
+  "alerts": [],
+  "reviews": [
+    {
+      "id": "5fc383a1-d641-49eb-b484-8a6eca0be436",
+      "creativeId": "eb05b806-88ab-4aaf-9979-98e61941aa49",
+      "version": 1,
+      "createdAt": "2026-10-22T07:20:20.549Z",
+      "creative": {
+        "kind": "carousel",
+        "files": [
+          "ivy-carousel-1.jpg",
+          "ivy-carousel-2.jpg",
+          "ivy-carousel-3.jpg",
+          "ivy-carousel-4.jpg"
+        ],
+        "analysedAs": "all 4 slides in order"
+      },
+      "context": {
+        "format": "Instagram carousel",
+        "campaign": "Festive season 2026",
+        "purpose": "Drive store visits and WhatsApp orders for the linen kurta",
+        "caption": "Handwoven linen, made to be lived in. Our linen kurta is Rs 2,499, and this festive season every kurta comes with free alterations until 31 October. Visit us on Linking Road or WhatsApp us to order.",
+        "newInstructions": "",
+        "stage": "first_draft"
+      },
+      "memoryUsed": {
+        "confirmed": 11,
+        "itemIds": [
+          "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+          "ffb3cf06-2152-409c-9bf8-ea9066b7a865",
+          "bbfbeab7-e040-4cca-9fdc-9b9b209083e8",
+          "49963829-cd72-4f51-a61f-08f0c7617430",
+          "fb642b25-a10c-496e-b35f-7fb1a536d0f6",
+          "9cd014eb-47f2-48aa-81b0-95fe297715af",
+          "e20c984d-5b49-48cd-bf7c-13216401629d",
+          "1663a25c-79b9-4f1c-8604-1b47bb399c60",
+          "1973fea6-d291-4a99-8647-c87ce290aad9",
+          "69d27d07-7a67-47e4-b843-9a7f55a6a35b",
+          "2fbf4512-bc63-43da-980f-a73b760bfd60"
+        ],
+        "memoryUpdatedAt": ""
+      },
+      "result": {
+        "verdict": "needs_revision",
+        "headline": "The carousel is close to ready with accurate facts and styling, but it completely lacks actual close-up fabric photography required by client instructions.",
+        "areas": {
+          "instructions": {
+            "status": "issue",
+            "note": "The client explicitly requested to always show fabric texture up close, but the carousel uses generic graphic patterns rather than actual fabric photography."
+          },
+          "brand": {
+            "status": "ok",
+            "note": "Colours align with ivory, sage green, and soft gold; typography and tone are calm and refined; and the full wordmark is correctly used."
+          },
+          "messaging": {
+            "status": "ok",
+            "note": "Messaging highlights handwoven linen craftsmanship, festive offer details, and clear call-to-action steps without hype."
+          },
+          "facts": {
+            "status": "ok",
+            "note": "Price (Rs 2,499), offer dates (until 31 October), store address, and WhatsApp contact number match memory perfectly."
+          },
+          "objective": {
+            "status": "ok",
+            "note": "Effectively drives both store visits and WhatsApp orders with explicit address and contact details on slide 4."
+          }
+        },
+        "findings": [
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "instruction",
+            "title": "Missing close-up product and fabric photography",
+            "location": "Whole creative",
+            "why": "Approved memory explicitly states: 'Always show the fabric up close, our customers buy on texture.' The creative currently uses flat graphic crosshatch textures on slides 1 and 2 instead of real photography of the handwoven linen kurta fabric.",
+            "fix": "Replace the top graphic panels on slides 1 and 2 (or feature across slides) with high-resolution, close-up macro photographs of the actual linen kurta fabric texture.",
+            "evidence": [
+              "fb642b25-a10c-496e-b35f-7fb1a536d0f6"
+            ],
+            "id": "d07d26d6-482e-4065-8006-d8c6a1080cc3"
+          },
+          {
+            "severity": "suggestion",
+            "certainty": "confirmed",
+            "category": "carousel",
+            "title": "Slides 3 and 4 lack visual imagery",
+            "location": "Slide 3",
+            "why": "Slides 3 and 4 drop the split layout used in slides 1 and 2, resulting in stark, text-only slides that reduce visual interest and consistency across the carousel sequence.",
+            "fix": "Maintain layout consistency across the carousel by incorporating subtle brand visuals or fabric detail shots in the top portion of slides 3 and 4 as well.",
+            "evidence": [],
+            "id": "52215f8d-df51-41f9-835b-56349d7a4139"
+          }
+        ],
+        "missing": [
+          {
+            "detail": "Close-up fabric texture photography",
+            "required": true,
+            "why": "The client specifically mandated close-up fabric shots because their customers purchase based on texture."
+          }
+        ],
+        "positives": [
+          {
+            "point": "Price of Rs 2,499 exactly matches approved product pricing.",
+            "evidence": [
+              "9cd014eb-47f2-48aa-81b0-95fe297715af"
+            ]
+          },
+          {
+            "point": "Store address is complete and matches approved memory digit-by-digit.",
+            "evidence": [
+              "e20c984d-5b49-48cd-bf7c-13216401629d"
+            ]
+          },
+          {
+            "point": "WhatsApp contact number (+91 98200 11223) is accurate.",
+            "evidence": [
+              "1663a25c-79b9-4f1c-8604-1b47bb399c60"
+            ]
+          },
+          {
+            "point": "Festive season offer of free alterations valid until 31 October matches approved offer memory.",
+            "evidence": [
+              "1973fea6-d291-4a99-8647-c87ce290aad9"
+            ]
+          },
+          {
+            "point": "Colour palette follows ivory, sage green, and soft gold guidelines without prohibited red or neon shades.",
+            "evidence": [
+              "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+              "ffb3cf06-2152-409c-9bf8-ea9066b7a865"
+            ]
+          },
+          {
+            "point": "Uses the full 'Ivy & Thread' wordmark consistently as decided, avoiding the deprecated monogram.",
+            "evidence": [
+              "2fbf4512-bc63-43da-980f-a73b760bfd60"
+            ]
+          },
+          {
+            "point": "Tone across copy and caption is calm, refined, and avoids prohibited discount jargon or all-caps shouting.",
+            "evidence": [
+              "bbfbeab7-e040-4cca-9fdc-9b9b209083e8",
+              "49963829-cd72-4f51-a61f-08f0c7617430"
+            ]
+          }
+        ],
+        "fixes": [
+          "Replace the graphic texture panels with real macro close-up photography of the handwoven linen fabric.",
+          "Consider extending the visual image split across slides 3 and 4 to keep carousel sequence continuity."
+        ],
+        "textFound": "Slide 1: Woven by hand. Worn for years. Ivy & Thread\nSlide 2: The Linen Kurta Rs 2,499 Handwoven linen, made in small batches Ivy & Thread\nSlide 3: This festive season Free alterations on every kurta, until 31 October Ivy & Thread\nSlide 4: Visit us 14 Linking Road, Bandra West, Mumbai WhatsApp orders: +91 98200 11223 Ivy & Thread\nCaption: Handwoven linen, made to be lived in. Our linen kurta is Rs 2,499, and this festive season every kurta comes with free alterations until 31 October. Visit us on Linking Road or WhatsApp us to order.",
+        "checked": [
+          "Slide 1 to 4 graphic elements and typography",
+          "Caption copy and call to action",
+          "Product naming and pricing against memory",
+          "Contact details and address accuracy against memory",
+          "Brand palette and prohibited rules compliance"
+        ],
+        "limitations": [
+          "Sorted doesn't store the client's logo files, fonts or past approved posts, so logo and typography were judged only against what the client said in memory."
+        ]
+      }
+    },
+    {
+      "id": "ef7db6f6-01b7-41a6-9f69-ada11f16fc16",
+      "creativeId": "f78663ae-84b6-451f-8331-3ecfe0a14d32",
+      "version": 1,
+      "createdAt": "2026-10-22T07:20:37.769Z",
+      "creative": {
+        "kind": "image",
+        "files": [
+          "ivy-navratri-sale-BAD.jpg"
+        ],
+        "analysedAs": "the image"
+      },
+      "context": {
+        "format": "Instagram feed post",
+        "campaign": "Navratri sale",
+        "purpose": "Drive WhatsApp orders",
+        "caption": "Biggest STEAL of the season!!! 40% off EVERYTHING, new arrivals included. Hurry, Navratri sale ends 12 Oct! WhatsApp +91 98200 11332 to order.",
+        "newInstructions": "",
+        "stage": "first_draft"
+      },
+      "memoryUsed": {
+        "confirmed": 11,
+        "itemIds": [
+          "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+          "ffb3cf06-2152-409c-9bf8-ea9066b7a865",
+          "bbfbeab7-e040-4cca-9fdc-9b9b209083e8",
+          "49963829-cd72-4f51-a61f-08f0c7617430",
+          "fb642b25-a10c-496e-b35f-7fb1a536d0f6",
+          "9cd014eb-47f2-48aa-81b0-95fe297715af",
+          "e20c984d-5b49-48cd-bf7c-13216401629d",
+          "1663a25c-79b9-4f1c-8604-1b47bb399c60",
+          "1973fea6-d291-4a99-8647-c87ce290aad9",
+          "69d27d07-7a67-47e4-b843-9a7f55a6a35b",
+          "2fbf4512-bc63-43da-980f-a73b760bfd60"
+        ],
+        "memoryUpdatedAt": ""
+      },
+      "result": {
+        "verdict": "needs_revision",
+        "headline": "This post directly violates almost every brand guideline, discount policy, and factual detail on file and must be completely recreated.",
+        "areas": {
+          "instructions": {
+            "status": "issue",
+            "note": "Breaks explicit prohibitions on discount caps, new arrival discounting, prohibited words, all-caps styling, colour palette, and logo usage."
+          },
+          "brand": {
+            "status": "issue",
+            "note": "Uses red and neon green instead of ivory, sage green, and soft gold; uses the dropped I&T monogram instead of the full wordmark; lacks close-up fabric texture imagery."
+          },
+          "messaging": {
+            "status": "issue",
+            "note": "Tone is loud and aggressive rather than calm and refined, featuring forbidden words ('STEAL', 'CHEAPEST') and excessive exclamation marks."
+          },
+          "facts": {
+            "status": "issue",
+            "note": "The WhatsApp number is incorrect (+91 98200 11332 instead of +91 98200 11223), the kurta price is unapproved, and the sale date (12 Oct) has already passed."
+          },
+          "objective": {
+            "status": "issue",
+            "note": "While a WhatsApp number is provided, the wrong contact details will misdirect potential orders."
+          }
+        },
+        "findings": [
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "fact",
+            "title": "Wrong WhatsApp number",
+            "location": "Image and Caption",
+            "why": "The creative and caption display '+91 98200 11332', whereas approved memory specifies '+91 98200 11223'.",
+            "fix": "Update the phone number to '+91 98200 11223' in both the image and the caption.",
+            "evidence": [
+              "1663a25c-79b9-4f1c-8604-1b47bb399c60"
+            ],
+            "id": "7570f25c-870b-4a76-a518-b019baaf631b"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "instruction",
+            "title": "Unauthorised discount percentage and new arrivals discount",
+            "location": "Image and Caption",
+            "why": "The post advertises 'FLAT 40% OFF' and discounts on new arrivals ('*Up to 25% off on new arrivals' and '40% off EVERYTHING, new arrivals included'). Approved memory specifies discounts are capped at 15% on the old collection and never permitted on new arrivals.",
+            "fix": "Remove the 40% and 25% discounts and ensure discounts do not exceed 15% on old collections only, or promote the active festive offer of 'Free alterations on every kurta'.",
+            "evidence": [
+              "69d27d07-7a67-47e4-b843-9a7f55a6a35b"
+            ],
+            "id": "84351b3b-571b-40d5-b740-3160cd7a07f9"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "brand",
+            "title": "Prohibited red and neon colour palette",
+            "location": "Image",
+            "why": "The image uses a bright red background with neon green and yellow graphics/text. Memory explicitly forbids red or neon colours and restricts the palette to ivory, sage green, and soft gold.",
+            "fix": "Redesign the graphic using only ivory, sage green, and soft gold.",
+            "evidence": [
+              "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+              "ffb3cf06-2152-409c-9bf8-ea9066b7a865"
+            ],
+            "id": "7038fa12-f886-40fc-8e66-269ba0d7b632"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "brand",
+            "title": "Use of prohibited words and all-caps shouting",
+            "location": "Image and Caption",
+            "why": "The words 'CHEAPEST' and 'STEAL' are used along with full uppercase shouting and multiple exclamation marks, violating explicit client rules against these words and tone.",
+            "fix": "Rewrite the text in title/sentence case with calm, refined messaging, removing words like 'CHEAPEST' and 'STEAL'.",
+            "evidence": [
+              "49963829-cd72-4f51-a61f-08f0c7617430",
+              "bbfbeab7-e040-4cca-9fdc-9b9b209083e8"
+            ],
+            "id": "284fbc3c-0b0d-4e7a-85a4-895009533b9c"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "fact",
+            "title": "Expired campaign date",
+            "location": "Image and Caption",
+            "why": "The creative and caption claim 'Navratri sale ends 12 Oct', but today is 22 Oct 2026, meaning this promotion has already expired.",
+            "fix": "Remove the expired Navratri date and align the timing with current active promotions (such as the festive offer valid till 31 Oct).",
+            "evidence": [
+              "1973fea6-d291-4a99-8647-c87ce290aad9"
+            ],
+            "id": "30b0e3fe-0f00-47bf-abdb-9dee48e246ff"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "brand",
+            "title": "Deprecated monogram used instead of wordmark",
+            "location": "Image (Bottom left)",
+            "why": "The image features the 'I&T' monogram, which the client explicitly discontinued in favour of the full 'Ivy & Thread' wordmark.",
+            "fix": "Replace 'I&T' with the full 'Ivy & Thread' wordmark.",
+            "evidence": [
+              "2fbf4512-bc63-43da-980f-a73b760bfd60"
+            ],
+            "id": "b417e5c5-ff47-4348-acdb-c7ef9e84ef8a"
+          },
+          {
+            "severity": "critical",
+            "certainty": "confirmed",
+            "category": "fact",
+            "title": "Wrong price for the linen kurta",
+            "location": "Image",
+            "why": "The linen kurta is listed at 'RS 1,999', but approved memory states the linen kurta is priced at Rs 2,499.",
+            "fix": "Change the price to Rs 2,499 unless an approved 15% discount on an older collection item applies.",
+            "evidence": [
+              "9cd014eb-47f2-48aa-81b0-95fe297715af",
+              "69d27d07-7a67-47e4-b843-9a7f55a6a35b"
+            ],
+            "id": "031b5776-5650-4db3-ace7-d20545900c26"
+          },
+          {
+            "severity": "important",
+            "certainty": "confirmed",
+            "category": "visual",
+            "title": "Missing fabric texture photography",
+            "location": "Image",
+            "why": "Client instructions specify always showing fabric close-up because customers buy on texture. This creative has no photography at all.",
+            "fix": "Feature close-up, high-quality photography of the linen fabric texture.",
+            "evidence": [
+              "fb642b25-a10c-496e-b35f-7fb1a536d0f6"
+            ],
+            "id": "6f5cbcd3-708d-4a43-a6dc-3adb5c8c0470"
+          }
+        ],
+        "missing": [
+          {
+            "detail": "Close-up fabric texture photography",
+            "required": true,
+            "why": "Memory dictates that fabric texture must always be shown up close."
+          },
+          {
+            "detail": "Full 'Ivy & Thread' wordmark",
+            "required": true,
+            "why": "Memory mandates using the full wordmark and retiring the monogram."
+          }
+        ],
+        "positives": [],
+        "fixes": [
+          "Re-do the visual design using ivory, sage green, and soft gold with close-up fabric photography.",
+          "Replace the 'I&T' monogram with the official 'Ivy & Thread' wordmark.",
+          "Correct the WhatsApp number to +91 98200 11223.",
+          "Remove the 40% discount, 'cheapest', and 'steal' claims; replace with approved offers (e.g., free alterations till 31 Oct or max 15% off old collection).",
+          "Update the kurta price to Rs 2,499 and remove the expired 12 Oct end date."
+        ],
+        "textFound": "FLAT 40% OFF CHEAPEST PRICES IN BANDRA LINEN KURTA NOW RS 1,999 STEAL DEAL!!! NAVRATRI SALE ENDS 12 OCT *Up to 25% off on new arrivals WhatsApp: +91 98200 11332 I&T Biggest STEAL of the season!!! 40% off EVERYTHING, new arrivals included. Hurry, Navratri sale ends 12 Oct! WhatsApp +91 98200 11332 to order.",
+        "checked": [
+          "Image visual elements and colours",
+          "On-screen typography and copy",
+          "Instagram caption copy",
+          "Phone numbers, prices, and offer dates against approved memory",
+          "Branding guidelines and logo decision"
+        ],
+        "limitations": [
+          "Sorted doesn't store the client's logo files, fonts or past approved posts, so logo and typography were judged only against what the client said in memory."
+        ]
+      }
+    }
+  ],
+  "trends": [
+    {
+      "id": "fcc75251-227d-4643-a753-0b176fe826bc",
+      "createdAt": "2026-10-22T10:06:24.597Z",
+      "hashtags": [
+        "linenkurta",
+        "mumbaiboutique",
+        "bandrashopping",
+        "festivewardrobe"
+      ],
+      "skippedHashtags": [],
+      "postsAnalysed": 64,
+      "windowDays": 14,
+      "signals": {
+        "audio": [],
+        "hashtags": [
+          {
+            "tag": "mumbaiboutique",
+            "posts": 3
+          },
+          {
+            "tag": "linenkurta",
+            "posts": 3
+          }
+        ],
+        "reelShare": 0.5
+      },
+      "ideas": [
+        {
+          "id": "8b5a4095-6a87-4876-955a-bb067bf12222",
+          "title": "The Perfect Fit Handwoven Kurta",
+          "trend": "Spotlighting impeccable tailoring, silhouette, and tactile fabric quality for festive linen kurtas",
+          "format": "Reel",
+          "hook": "True elegance lies entirely in the cut and texture.",
+          "captionStarter": "Handwoven linen crafted for an understated, perfect silhouette.",
+          "hashtags": [
+            "linenkurta",
+            "mumbaiboutique",
+            "whitelinen",
+            "festivewardrobe"
+          ],
+          "audio": "",
+          "whyItFits": "The client emphasizes calm refinement and showcasing fabric textures up close, while offering complimentary alterations on every kurta this festive season.",
+          "evidence": [
+            "fb642b25-a10c-496e-b35f-7fb1a536d0f6",
+            "9cd014eb-47f2-48aa-81b0-95fe297715af",
+            "1973fea6-d291-4a99-8647-c87ce290aad9",
+            "bbfbeab7-e040-4cca-9fdc-9b9b209083e8"
+          ],
+          "proof": [
+            {
+              "id": "4006393184542590677",
+              "url": "https://www.instagram.com/p/DeZkV_jNQbV/",
+              "kind": "reel",
+              "postedAt": "2026-10-12T15:36:17.000Z",
+              "likes": 821,
+              "comments": 5,
+              "plays": 35617,
+              "audio": "",
+              "hashtags": [
+                "linenkurta",
+                "royyd"
+              ],
+              "caption": "Perfect Kurta Pajama Fit = Royal Look. 👑 कुर्ता-पायजामा की असली पहचान है उसकी Perfect Fitting और Elegant Silhouette. ✨ जब कटिंग और सिलाई हो बेहतरीन, तो हर लुक बन जाता है खास। Perfect Fit. Timeless Elegance. Only ROYYD. ",
+              "owner": "royyd29",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/846927594_18138690112623778_4550646576374055914_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=109&ig_cache_key=NDAwNjM5MzE4NDU0MjU5MDY3NzE4MTM4NjkwMTA5NjIzNzc4.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjExNzkuc2RyLnZpZGVvX2RlZmF1bHRfY292ZXJfZnJhbWUuQzMifQ%3D%3D&_nc_ohc=cBcga2TgcYcQ7kNvwF8JQdS&_nc_oc=AdoZ_irXlY1DKzyLyQAyeq0pB2SoS1WJ7AS31KYWsND8r1OZYunTFIt8aOalMqArD4s&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=mTxEn_JrW0psPSr3thkp1w&_nc_ss=7a3ba&oh=00_AQMPKwg467Af9Fft9vYynD04WPoMegFC3oXRIXy8W1QKWw&oe=6ADFC295",
+              "score": 11.2
+            },
+            {
+              "id": "4011564406059990795",
+              "url": "https://www.instagram.com/p/Der8JK4zn8L/",
+              "kind": "post",
+              "postedAt": "2026-10-19T18:52:33.000Z",
+              "likes": 122,
+              "comments": 12,
+              "plays": 0,
+              "audio": "",
+              "hashtags": [
+                "linenkurta",
+                "whitelinen",
+                "kurta",
+                "trendingkurta",
+                "originallinen"
+              ],
+              "caption": "🤍🤍🤍 #linenkurta #whitelinen #kurta #trendingkurta #originallinen",
+              "owner": "twi_n_kal",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/849771794_18450898561127633_1090045257552006089_n.jpg?stp=dst-jpegr_e35_p1080x1080_tt6&_nc_cat=101&ig_cache_key=NDAxMTU2NDQwNjA1OTk5MDc5NQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMzA2MS5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=cwA4MecCTTYQ7kNvwGdfqlu&_nc_oc=AdpnfocXLa8d7zTmDozmuUK5vSLji3VvQsFIuAigAZqpU6XIcaIsQRUNH1qeM_DqLbY&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=_ZUhdI66T3egj0EprNhBQw&_nc_ss=7a3ba&oh=00_AQMYC7Sqm-1nU8EnQSDnRFx1xjO6kYaM6ESRKunQeDdefw&oe=6ADFB603",
+              "score": 2.5
+            }
+          ],
+          "status": "new"
+        },
+        {
+          "id": "841385c8-86d8-4174-a1c0-df8d64ec0d37",
+          "title": "Bandra Boutique Destination",
+          "trend": "Discovering local boutique hidden gems and intimate retail store walks",
+          "format": "Reel",
+          "hook": "A quiet sanctuary for linen lovers in Bandra West.",
+          "captionStarter": "Step inside Ivy & Thread on Linking Road to experience our handwoven collections in person.",
+          "hashtags": [
+            "mumbaiboutique",
+            "linenkurta",
+            "mumbaishopping",
+            "shoplocalmumbai"
+          ],
+          "audio": "",
+          "whyItFits": "The client has a physical presence at Linking Road in Bandra West and requested the use of their full brand name Ivy & Thread in a calm, welcoming tone.",
+          "evidence": [
+            "e20c984d-5b49-48cd-bf7c-13216401629d",
+            "2fbf4512-bc63-43da-980f-a73b760bfd60",
+            "bbfbeab7-e040-4cca-9fdc-9b9b209083e8"
+          ],
+          "proof": [
+            {
+              "id": "4012558585843274046",
+              "url": "https://www.instagram.com/p/DeveMY9odE-/",
+              "kind": "reel",
+              "postedAt": "2026-10-21T03:46:18.000Z",
+              "likes": 457,
+              "comments": 876,
+              "plays": 29148,
+              "audio": "",
+              "hashtags": [
+                "indowesternoutfits",
+                "mumbaiboutique",
+                "fyp",
+                "plussizefashion",
+                "mumbaishopping"
+              ],
+              "caption": "Looking for the most unique Indo-western outfits in Mumbai for Diwali This Mumbai boutique in Vidyavihar is a hidden gem with exclusive designer pieces and silhouettes you genuinely won’t find anywhere else in the city. ",
+              "owner": "bhaktikotrani",
+              "thumbnail": "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/859529375_18643598899058451_8828873505403763207_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=104&ig_cache_key=NDAxMjU1ODU4NTg0MzI3NDA0NjE4NjQzNTk4ODk2MDU4NDUx.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=bDbthXlBYkUQ7kNvwG88P5a&_nc_oc=AdrPMePbCmXKPPDczgGroOBT18K2HW-xviQI8cxt2BxTGGfF06JJi1T6yy4thIzn3N8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=uGZ4AECb03PmVZQAaHD-nA&_nc_ss=7a3ba&oh=00_AQOhSLBA-NDtRKHQUjmM1dX5fZJXHYryCUKXMtASM54V-A&oe=6ADFB343",
+              "score": 149.8
+            },
+            {
+              "id": "4006182496934885571",
+              "url": "https://www.instagram.com/p/DeY0cFbMPjD/",
+              "kind": "reel",
+              "postedAt": "2026-10-12T08:46:17.000Z",
+              "likes": 124,
+              "comments": 17,
+              "plays": 8016,
+              "audio": "",
+              "hashtags": [
+                "diyamehtaofficial",
+                "independent",
+                "shoplocalmumbai",
+                "sevenbungalows",
+                "mumbaiboutique"
+              ],
+              "caption": "Hi I’m Diya and I would love to see you visit my store in Andheri west . This is my space where I have created and curated clothes for women who love comfort , and have a strong sense of their own style. If you are in th",
+              "owner": "diyamehta_official",
+              "thumbnail": "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/846612092_18630630304017067_8659189401783437752_n.jpg?stp=dst-jpg_e15_s640x640_tt6&_nc_cat=111&ig_cache_key=NDAwNjE4MjQ5NjkzNDg4NTU3MTE4NjMwNjMwMjk4MDE3MDY3.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjEyMDYuc2RyLnZpZGVvX3VzZXJfc2VsZWN0ZWRfdGh1bWJuYWlsLkMzIn0%3D&_nc_ohc=-n-2zQ5yuBcQ7kNvwEb2lJf&_nc_oc=AdqhDJzzjwPSMBWOHNtA1w9epyv2kdkvW7sV22LZLdnsCb5eu0ibnebFA2NWmiLdbww&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=uGZ4AECb03PmVZQAaHD-nA&_nc_ss=7a3ba&oh=00_AQMcZCT7ETjqmLociZ1f1z2DTXYmafuIdri5b1QjQV-NDQ&oe=6ADFC5F7",
+              "score": 2.4
+            }
+          ],
+          "status": "new"
+        },
+        {
+          "id": "8b434cba-2fb5-4205-8404-c72d113f5fab",
+          "title": "Fabric & Texture Study Carousel",
+          "trend": "Detail-focused minimalist aesthetics featuring neutral tones and fabric weaves",
+          "format": "Carousel",
+          "hook": "Take a closer look at the weave.",
+          "captionStarter": "Each handwoven linen kurta is finished in subtle palettes of ivory and sage green, designed to breathe effortlessly.",
+          "hashtags": [
+            "linenkurta",
+            "whitelinen",
+            "originallinen",
+            "mumbaiboutique"
+          ],
+          "audio": "",
+          "whyItFits": "The client instructed us to always showcase fabric weave up close and to keep the colour palette restricted strictly to ivory, sage green, and soft gold.",
+          "evidence": [
+            "fb642b25-a10c-496e-b35f-7fb1a536d0f6",
+            "ac3a3b79-b3f2-408c-9822-b4cfb1fe1f73",
+            "9cd014eb-47f2-48aa-81b0-95fe297715af"
+          ],
+          "proof": [
+            {
+              "id": "4011564406059990795",
+              "url": "https://www.instagram.com/p/Der8JK4zn8L/",
+              "kind": "post",
+              "postedAt": "2026-10-19T18:52:33.000Z",
+              "likes": 122,
+              "comments": 12,
+              "plays": 0,
+              "audio": "",
+              "hashtags": [
+                "linenkurta",
+                "whitelinen",
+                "kurta",
+                "trendingkurta",
+                "originallinen"
+              ],
+              "caption": "🤍🤍🤍 #linenkurta #whitelinen #kurta #trendingkurta #originallinen",
+              "owner": "twi_n_kal",
+              "thumbnail": "https://scontent-cph2-1.cdninstagram.com/v/t51.82787-15/849771794_18450898561127633_1090045257552006089_n.jpg?stp=dst-jpegr_e35_p1080x1080_tt6&_nc_cat=101&ig_cache_key=NDAxMTU2NDQwNjA1OTk5MDc5NQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMzA2MS5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=cwA4MecCTTYQ7kNvwGdfqlu&_nc_oc=AdpnfocXLa8d7zTmDozmuUK5vSLji3VvQsFIuAigAZqpU6XIcaIsQRUNH1qeM_DqLbY&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_gid=_ZUhdI66T3egj0EprNhBQw&_nc_ss=7a3ba&oh=00_AQMYC7Sqm-1nU8EnQSDnRFx1xjO6kYaM6ESRKunQeDdefw&oe=6ADFB603",
+              "score": 2.5
+            },
+            {
+              "id": "4012874075172104427",
+              "url": "https://www.instagram.com/p/Dewl7XTAejr/",
+              "kind": "carousel",
+              "postedAt": "2026-10-21T14:11:29.000Z",
+              "likes": 251,
+              "comments": 7,
+              "plays": 0,
+              "audio": "",
+              "hashtags": [
+                "magenta",
+                "lehenga",
+                "festivewardrobe",
+                "ethnicwear",
+                "diwalilook"
+              ],
+              "caption": "Gulaabi si ada, sunehra singaar, tyohaaron ke mausam mein dilkash nikhaar💖✨ A beautiful magenta lehenga with delicate detailing and a flowy silhouette, made for festive celebrations, wedding invites, and all the moments",
+              "owner": "aachho",
+              "thumbnail": "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/855161580_18453344896123310_3313870639485012437_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_cat=105&ig_cache_key=NDAxMjg3MzY0NjY5MDY3NDg1OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMjcwMi5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=x8m55s3zGmoQ7kNvwGagtgW&_nc_oc=Adpgze_Ctz08F81L-YbRNwJZMDwQ8LC68cWZy1VnplHKaUsepKFBfYeNm6rpQnRDRadEURafNxN3SZ4eWqx1vnh-&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=0dKBPZz8Bmmlm3-FxZ3bLw&_nc_ss=7a3ba&oh=00_AQN0FUatp62I0PhzBHhzVZCMxT1p7EVup0IsxOqRolXTKw&oe=6ADF98E4",
+              "score": 13.7
+            }
+          ],
+          "status": "new"
+        }
+      ],
+      "limitations": [
+        "Based on 64 public posts and Reels from the last 14 days under these hashtags: a sample of each niche, not all of Instagram.",
+        "Trends come from the hashtags searched. Instagram doesn't publish its own trending list."
+      ]
+    }
+  ],
+  "updatedAt": "2026-10-22T10:18:44.867Z"
+}

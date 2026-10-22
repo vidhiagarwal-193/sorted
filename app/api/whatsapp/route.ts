@@ -1,10 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { after } from "next/server";
-import { checkRequest } from "@/lib/check";
-import { extractItems } from "@/lib/extract";
-import { githubEnabled, readMemory, updateMemory } from "@/lib/github";
-import { displayName } from "@/lib/clientProfiles";
-import type { Alert } from "@/lib/types";
+import { githubEnabled } from "@/lib/github";
+import { ingestLiveMessage } from "@/lib/liveIngest";
 
 // WhatsApp Cloud API webhook. Meta calls this when a client messages our business number.
 // We only receive messages; we never reply.
@@ -72,37 +69,14 @@ async function handleMessage(message: IncomingMessage, senderName: string) {
     return console.log(`WhatsApp: skipped a ${message.type} message from ${client} (only text is read)`);
   }
   if (!githubEnabled()) return console.error("WhatsApp: GitHub saving isn't set up, so there's nowhere to store memory");
-
-  const existing = (await readMemory(client))?.memory;
-  if (existing?.seenMessageIds?.includes(message.id)) return console.log("WhatsApp: duplicate message, skipped");
-
-  const sent = new Date(Number(message.timestamp) * 1000);
-  const tz = { timeZone: "Asia/Kolkata" } as const;
-  const date = sent.toLocaleDateString("en-GB", { ...tz, day: "numeric", month: "short", year: "numeric" });
-  const text = message.text.body.trim();
-  // Format it like a line from a WhatsApp export so extraction works the same as an upload.
-  const line = `${sent.toLocaleDateString("en-GB", tz)}, ${sent.toLocaleTimeString("en-GB", { ...tz, hour: "2-digit", minute: "2-digit" })} - ${senderName} (${displayName(client)}): ${text}`;
-
-  const items = await extractItems(client, line, "WhatsApp (live)");
-  const confirmed = (existing?.items ?? []).filter((it) => it.confirmed);
-  const check = confirmed.length > 0 ? await checkRequest(client, text, confirmed) : null;
-  const alert: Alert | null =
-    check?.status === "conflict"
-      ? { id: crypto.randomUUID(), message: text, from: senderName, date, reason: check.reason, conflictsWith: check.conflictsWith, dismissed: false }
-      : null;
-
-  await updateMemory(
+  const result = await ingestLiveMessage({
     client,
-    (m) => {
-      if (m.seenMessageIds?.includes(message.id)) return null;
-      return {
-        ...m,
-        items: [...m.items, ...items],
-        alerts: alert ? [...(m.alerts ?? []), alert] : (m.alerts ?? []),
-        seenMessageIds: [...(m.seenMessageIds ?? []), message.id].slice(-500),
-      };
-    },
-    `WhatsApp from ${client}: ${items.length} new item(s)${alert ? ", CONFLICT alert" : ""}`,
-  );
-  console.log(`WhatsApp: ${client} -> ${items.length} item(s), ${alert ? "conflict alert" : "no conflict"}`);
+    channel: "whatsapp",
+    messageId: message.id,
+    chatTitle: senderName,
+    sender: senderName,
+    text: message.text.body.trim(),
+    sentAt: new Date(Number(message.timestamp) * 1000),
+  });
+  console.log(`WhatsApp: ${client} -> ${result.status}: ${result.note}`);
 }
