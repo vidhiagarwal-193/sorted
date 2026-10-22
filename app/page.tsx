@@ -1,353 +1,217 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { ITEM_TYPES, TYPE_LABELS, type CheckResult, type MemoryItem } from "@/lib/types";
+import Link from "next/link";
+import { useSyncExternalStore } from "react";
+import { ArrowRight, ScanSearch, TriangleAlert } from "lucide-react";
+import { VERDICT } from "@/components/ReviewResults";
+import { AiTag, Card, ClientAvatar, Page, SectionTitle, Skeleton } from "@/components/ui";
+import { useClients, type ClientProfile } from "@/lib/clients";
+import { summarize, useAllMemories } from "@/lib/useAllMemories";
+import type { ClientMemory, ReviewRecord } from "@/lib/types";
 
-type SaveStatus = "off" | "saving" | "saved" | "error" | "idle";
+type Focus = { client: ClientProfile; kind: "conflict" | "creative" | "review" | "start"; title: string; detail: string; action: string };
 
-// Calls one of our API routes and turns any failure into a friendly message.
-async function callApi<T>(url: string, init?: RequestInit): Promise<T> {
-  let res: Response;
-  try {
-    res = await fetch(url, { headers: { "Content-Type": "application/json" }, ...init });
-  } catch {
-    throw new Error("Couldn't reach the app's server. Is it still running?");
+// Builds "Today's focus" from real data only: open conflicts first, then details to review,
+// then clients with no brand memory yet.
+function buildFocus(clients: ClientProfile[], memories: Record<string, ClientMemory>): Focus[] {
+  const focus: Focus[] = [];
+  for (const client of clients) {
+    const memory = memories[client.key];
+    for (const a of (memory?.alerts ?? []).filter((x) => !x.dismissed)) {
+      focus.push({ client, kind: "conflict", title: `"${a.message}"`, detail: a.reason, action: "Review conflict" });
+    }
   }
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error ?? "Something went wrong. Please try again.");
-  return data as T;
+  for (const client of clients) {
+    for (const r of latestPerCreative(memories[client.key]?.reviews)) {
+      if (r.result.verdict !== "needs_revision" && r.result.verdict !== "needs_verification") continue;
+      focus.push({
+        client,
+        kind: "creative",
+        title: `${VERDICT[r.result.verdict].label}: ${r.creative.files.join(", ")}`,
+        detail: r.result.headline,
+        action: "See review",
+      });
+    }
+  }
+  for (const client of clients) {
+    const s = summarize(memories[client.key]);
+    if (s.toReview > 0) {
+      focus.push({
+        client,
+        kind: "review",
+        title: `${s.toReview} new detail${s.toReview === 1 ? "" : "s"} to confirm`,
+        detail: "Sorted found these in their messages. Confirm what's right so it's used in checks.",
+        action: "Review details",
+      });
+    }
+  }
+  for (const client of clients) {
+    const s = summarize(memories[client.key]);
+    if (s.confirmed === 0 && s.toReview === 0) {
+      focus.push({
+        client,
+        kind: "start",
+        title: "No brand memory yet",
+        detail: "Add their WhatsApp chat or an email so Sorted can learn what they want.",
+        action: "Add messages",
+      });
+    }
+  }
+  return focus;
 }
 
-export default function Home() {
-  const [clients, setClients] = useState(["Client A", "Client B"]);
-  const [client, setClient] = useState("Client A");
-  const [newClient, setNewClient] = useState("");
+// The newest version of each reviewed creative.
+function latestPerCreative(reviews: ReviewRecord[] = []) {
+  const latest = new Map<string, ReviewRecord>();
+  for (const r of reviews) latest.set(r.creativeId, r);
+  return [...latest.values()];
+}
 
-  const [items, setItems] = useState<MemoryItem[]>([]);
-  const [loadingMemory, setLoadingMemory] = useState(true);
-  const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
-
-  const [file, setFile] = useState<File | null>(null);
-  const [pasted, setPasted] = useState("");
-  const [extracting, setExtracting] = useState(false);
-  const [extractError, setExtractError] = useState("");
-  const fileInput = useRef<HTMLInputElement>(null);
-
-  const [request, setRequest] = useState("");
-  const [checking, setChecking] = useState(false);
-  const [checkError, setCheckError] = useState("");
-  const [result, setResult] = useState<CheckResult | null>(null);
-  const [openOriginal, setOpenOriginal] = useState<string | null>(null);
-
-  // Saves happen one after another so two quick clicks don't overwrite each other.
-  const saveQueue = useRef(Promise.resolve());
-
-  // Load this client's saved memory whenever the client changes.
-  useEffect(() => {
-    let cancelled = false;
-    callApi<{ memory: { items: MemoryItem[] }; saving: boolean }>(
-      `/api/memory?client=${encodeURIComponent(client)}`,
-    )
-      .then((data) => {
-        if (cancelled) return;
-        setItems(data.memory.items ?? []);
-        setSaveStatus(data.saving ? "idle" : "off");
-      })
-      .catch((err) => !cancelled && setExtractError(err.message))
-      .finally(() => !cancelled && setLoadingMemory(false));
-    return () => {
-      cancelled = true;
-    };
-  }, [client]);
-
-  function switchClient(name: string) {
-    setClient(name);
-    setItems([]);
-    setLoadingMemory(true);
-    setResult(null);
-    setExtractError("");
-    setCheckError("");
-  }
-
-  function addClient() {
-    const name = newClient.trim();
-    if (!name) return;
-    if (!clients.includes(name)) setClients([...clients, name]);
-    setNewClient("");
-    switchClient(name);
-  }
-
-  function save(nextItems: MemoryItem[], commitMessage: string) {
-    if (saveStatus === "off") return;
-    setSaveStatus("saving");
-    saveQueue.current = saveQueue.current.then(() =>
-      callApi<{ saved: boolean }>("/api/memory", {
-        method: "PUT",
-        body: JSON.stringify({ memory: { client, items: nextItems }, commitMessage }),
-      })
-        .then((r) => setSaveStatus(r.saved ? "saved" : "off"))
-        .catch(() => setSaveStatus("error")),
-    );
-  }
-
-  async function extract() {
-    setExtractError("");
-    let text = pasted.trim();
-    let source: "WhatsApp" | "Email" = "Email";
-
-    if (file) {
-      if (!file.name.toLowerCase().endsWith(".txt")) {
-        return setExtractError("Please upload a .txt file. In WhatsApp: open the chat → ⋮ → More → Export chat → Without media.");
-      }
-      if (file.size === 0) return setExtractError("That file is empty. Try exporting the chat again.");
-      if (file.size > 1_000_000) return setExtractError("That file is over 1 MB. Try a shorter chat export.");
-      text = (await file.text()).trim();
-      source = "WhatsApp";
-    }
-    if (!text) return setExtractError("Upload a WhatsApp chat (.txt) or paste an email first.");
-
-    setExtracting(true);
-    try {
-      const data = await callApi<{ items: MemoryItem[] }>("/api/extract", {
-        method: "POST",
-        body: JSON.stringify({ client, text, source }),
-      });
-      const next = [...items, ...data.items];
-      setItems(next);
-      save(next, `Add ${data.items.length} unconfirmed items from ${source} (${client})`);
-      setFile(null);
-      setPasted("");
-      if (fileInput.current) fileInput.current.value = "";
-    } catch (err) {
-      setExtractError((err as Error).message);
-    } finally {
-      setExtracting(false);
-    }
-  }
-
-  function confirmItem(id: string) {
-    const item = items.find((it) => it.id === id);
-    const next = items.map((it) => (it.id === id ? { ...it, confirmed: true } : it));
-    setItems(next);
-    save(next, `Confirm: ${item?.text} (${client})`);
-  }
-
-  function discardItem(id: string) {
-    const item = items.find((it) => it.id === id);
-    const next = items.filter((it) => it.id !== id);
-    setItems(next);
-    save(next, `Discard: ${item?.text} (${client})`);
-  }
-
-  async function check() {
-    setCheckError("");
-    setResult(null);
-    setOpenOriginal(null);
-    if (!request.trim()) return setCheckError("Type or paste the new request first.");
-    if (!items.some((it) => it.confirmed)) {
-      return setCheckError("Confirm at least one item on the brief card first. Only confirmed items are checked.");
-    }
-    setChecking(true);
-    try {
-      setResult(
-        await callApi<CheckResult>("/api/check", {
-          method: "POST",
-          body: JSON.stringify({ client, request, items }),
-        }),
-      );
-    } catch (err) {
-      setCheckError((err as Error).message);
-    } finally {
-      setChecking(false);
-    }
-  }
-
-  const conflicting = items.filter((it) => result?.conflictsWith.includes(it.id));
+export default function Overview() {
+  const { clients } = useClients();
+  const { memories, loading } = useAllMemories(clients.map((c) => c.key));
+  const focus = buildFocus(clients, memories);
+  const totals = clients.reduce(
+    (t, c) => {
+      const s = summarize(memories[c.key]);
+      return { conflicts: t.conflicts + s.conflicts, toReview: t.toReview + s.toReview, confirmed: t.confirmed + s.confirmed };
+    },
+    { conflicts: 0, toReview: 0, confirmed: 0 },
+  );
+  const today = useToday();
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-8 text-slate-900">
-      <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold">Client Memory AI</h1>
-          <p className="text-slate-600">Upload a client&apos;s chats, confirm their brief, and check new requests against it.</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            className="rounded-md border border-slate-300 bg-white px-3 py-2"
-            value={client}
-            onChange={(e) => switchClient(e.target.value)}
-          >
-            {clients.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-          <input
-            className="w-36 rounded-md border border-slate-300 bg-white px-3 py-2"
-            placeholder="New client…"
-            value={newClient}
-            onChange={(e) => setNewClient(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addClient()}
-          />
-          <button className="rounded-md border border-slate-300 bg-white px-3 py-2 hover:bg-slate-100" onClick={addClient}>
-            Add
-          </button>
-        </div>
-      </header>
+    <Page>
+      {/* Welcome */}
+      <section className="relative mb-8 overflow-hidden rounded-3xl bg-ink px-6 py-8 text-paper sm:px-10 sm:py-10">
+        <div className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-accent" aria-hidden="true" />
+        <svg className="absolute right-10 top-8 hidden sm:block" width="72" height="72" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M8.5 16.5l5 5L24 10" fill="none" stroke="#F7F5F0" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <p className="relative text-[13px] text-paper/60">{today}</p>
+        <h1 className="relative mt-2 max-w-xl font-display text-[38px] font-extrabold leading-[1.02] tracking-tight sm:text-[54px]">
+          Let&apos;s get things sorted.
+        </h1>
+        <p className="relative mt-3 max-w-md text-[15px] text-paper/70">
+          Your clients, today&apos;s opportunities, and everything that needs your attention.
+        </p>
+        <dl className="relative mt-8 flex flex-wrap gap-x-10 gap-y-4">
+          <Stat label="Open conflicts" value={totals.conflicts} loading={loading} hot={totals.conflicts > 0} />
+          <Stat label="Details to review" value={totals.toReview} loading={loading} />
+          <Stat label="Details confirmed" value={totals.confirmed} loading={loading} />
+          <Stat label="Clients" value={clients.length} loading={false} />
+        </dl>
+      </section>
 
-      <div className="grid gap-6 md:grid-cols-[1fr_1.3fr]">
-        {/* Left column: add messages, then check a request */}
-        <div className="flex flex-col gap-6">
-          <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-1 font-semibold">1. Add messages</h2>
-            <p className="mb-3 text-sm text-slate-600">Upload a WhatsApp chat export (.txt) or paste an email.</p>
-            <input
-              ref={fileInput}
-              type="file"
-              accept=".txt,text/plain"
-              className="mb-3 block w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-2"
-              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            />
-            <textarea
-              className="mb-3 h-24 w-full rounded-md border border-slate-300 p-2 text-sm disabled:bg-slate-50"
-              placeholder="…or paste an email here"
-              value={pasted}
-              disabled={!!file}
-              onChange={(e) => setPasted(e.target.value)}
-            />
-            <button
-              className="w-full rounded-md bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50"
-              onClick={extract}
-              disabled={extracting}
-            >
-              {extracting ? "Reading messages…" : "Extract"}
-            </button>
-            {extractError && <p className="mt-3 rounded-md bg-amber-50 p-3 text-sm text-amber-900">{extractError}</p>}
-          </section>
-
-          <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-1 font-semibold">3. Check a new request</h2>
-            <p className="mb-3 text-sm text-slate-600">Compared only against confirmed items.</p>
-            <textarea
-              className="mb-3 h-20 w-full rounded-md border border-slate-300 p-2 text-sm"
-              placeholder={`e.g. Let's do a 20% off Diwali post for ${client}`}
-              value={request}
-              onChange={(e) => setRequest(e.target.value)}
-            />
-            <button
-              className="w-full rounded-md bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50"
-              onClick={check}
-              disabled={checking}
-            >
-              {checking ? "Checking…" : "Check"}
-            </button>
-            {checkError && <p className="mt-3 rounded-md bg-amber-50 p-3 text-sm text-amber-900">{checkError}</p>}
-
-            {result?.status === "ok" && (
-              <div className="mt-3 rounded-md border border-green-300 bg-green-50 p-3 text-sm text-green-900">
-                <p className="font-semibold">✓ OK</p>
-                <p>{result.reason}</p>
-              </div>
-            )}
-            {result?.status === "conflict" && (
-              <div className="mt-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-900">
-                <p className="font-semibold">⚠ Warning: this may contradict what {client} said before</p>
-                <p className="mb-2">{result.reason}</p>
-                <p className="mb-2 rounded bg-white/70 p-2">
-                  <span className="text-xs uppercase text-red-700">New request</span>
-                  <br />
-                  {request}
-                </p>
-                {conflicting.map((it) => (
-                  <div key={it.id} className="mb-2 rounded bg-white/70 p-2">
-                    <span className="text-xs uppercase text-red-700">Conflicts with</span>
-                    <br />
-                    <button
-                      className="text-left underline decoration-dotted"
-                      onClick={() => setOpenOriginal(openOriginal === it.id ? null : it.id)}
-                    >
-                      &ldquo;{it.quote}&rdquo; ({it.source}, {it.date || "no date"})
-                    </button>
-                    {openOriginal === it.id && (
-                      <p className="mt-1 rounded bg-slate-100 p-2 font-mono text-xs text-slate-700">{it.original}</p>
-                    )}
-                  </div>
-                ))}
-                <p className="text-xs text-red-700">The AI only flags this. You decide whether to go ahead.</p>
-                <button className="mt-2 text-xs underline" onClick={() => setResult(null)}>
-                  Dismiss
-                </button>
-              </div>
-            )}
-          </section>
-        </div>
-
-        {/* Right column: the brief card */}
-        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="mb-3 flex items-baseline justify-between gap-2">
-            <h2 className="font-semibold">2. Brief card: {client}</h2>
-            <SaveBadge status={saveStatus} />
-          </div>
-          {loadingMemory ? (
-            <p className="text-sm text-slate-500">Loading…</p>
-          ) : items.length === 0 ? (
-            <p className="text-sm text-slate-500">Nothing here yet. Add some messages to build {client}&apos;s brief.</p>
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1.6fr_1fr]">
+        {/* Today's focus */}
+        <section className="min-w-0">
+          <SectionTitle aside={loading ? "" : `${focus.length} item${focus.length === 1 ? "" : "s"}`}>Today&apos;s focus</SectionTitle>
+          {loading ? (
+            <div className="flex flex-col gap-3">
+              <Skeleton className="h-24" />
+              <Skeleton className="h-24" />
+            </div>
+          ) : focus.length === 0 ? (
+            <Card className="p-6">
+              <p className="font-display text-[17px] font-bold">All sorted.</p>
+              <p className="mt-1 text-[14px] text-muted">No conflicts and nothing waiting for review.</p>
+            </Card>
           ) : (
-            ITEM_TYPES.map((type) => {
-              const group = items.filter((it) => it.type === type);
-              if (group.length === 0) return null;
-              return (
-                <div key={type} className="mb-4">
-                  <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">{TYPE_LABELS[type]}</h3>
-                  <ul className="flex flex-col gap-2">
-                    {group.map((it) => (
-                      <li
-                        key={it.id}
-                        className={`rounded-lg border p-3 text-sm ${
-                          it.confirmed ? "border-slate-300 bg-white" : "border-dashed border-slate-300 bg-slate-50 text-slate-600"
-                        }`}
-                      >
-                        <p className="font-medium text-slate-900">{it.text}</p>
-                        <p className="mt-1 italic">&ldquo;{it.quote}&rdquo;</p>
-                        <div className="mt-2 flex items-center justify-between gap-2 text-xs text-slate-500">
-                          <span>
-                            {it.source} · {it.date || "no date"}
+            <ol className="flex flex-col gap-3">
+              {focus.map((f, i) => (
+                <li key={i} className="rise" style={{ animationDelay: `${i * 40}ms` }}>
+                  <Link
+                    href={`/clients/${f.client.slug}`}
+                    className={`group flex items-start gap-4 rounded-2xl border bg-card p-4 transition hover:border-ink/30 hover:shadow-[0_8px_24px_-14px_rgba(48,44,40,0.3)] sm:p-5 ${
+                      f.kind === "conflict" ? "border-alert/30" : "border-line"
+                    }`}
+                  >
+                    <ClientAvatar client={f.client} size={40} />
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1 flex flex-wrap items-center gap-2">
+                        <span className="text-[13px] font-semibold">{f.client.name}</span>
+                        {f.kind === "conflict" && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-alert-soft px-2 py-0.5 text-[11px] font-semibold text-alert-ink">
+                            <TriangleAlert size={11} /> Conflict
                           </span>
-                          {it.confirmed ? (
-                            <span className="font-medium text-green-700">✓ Confirmed</span>
-                          ) : (
-                            <span className="flex gap-2">
-                              <button className="text-slate-500 underline" onClick={() => discardItem(it.id)}>
-                                Discard
-                              </button>
-                              <button
-                                className="rounded-md bg-slate-900 px-2 py-1 font-medium text-white hover:bg-slate-700"
-                                onClick={() => confirmItem(it.id)}
-                              >
-                                Confirm
-                              </button>
-                            </span>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })
+                        )}
+                        {f.kind === "review" && <AiTag>Found by AI</AiTag>}
+                        {f.kind === "creative" && <AiTag>Content review</AiTag>}
+                      </div>
+                      <p className="truncate font-display text-[17px] font-bold leading-snug">{f.title}</p>
+                      <p className="mt-0.5 line-clamp-2 text-[13px] text-muted">{f.detail}</p>
+                    </div>
+                    <span className="hidden shrink-0 items-center gap-1 self-center text-[13px] font-semibold sm:flex">
+                      {f.action} <ArrowRight size={15} className="transition group-hover:translate-x-0.5" />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
           )}
         </section>
+
+        {/* Latest content reviews across all clients */}
+        <section>
+          <SectionTitle>Recent reviews</SectionTitle>
+          {(() => {
+            const recent = clients
+              .flatMap((client) => latestPerCreative(memories[client.key]?.reviews).map((r) => ({ client, r })))
+              .sort((a, b) => b.r.createdAt.localeCompare(a.r.createdAt))
+              .slice(0, 5);
+            if (loading) return <Skeleton className="h-40" />;
+            if (recent.length === 0) {
+              return (
+                <Card className="p-6">
+                  <ScanSearch size={22} className="text-muted" />
+                  <p className="mt-3 font-display text-[17px] font-bold">No content reviewed yet</p>
+                  <p className="mt-1 text-[14px] text-muted">
+                    Before a post, carousel or Reel goes to a client, check it against everything Sorted knows about them.
+                  </p>
+                  <Link href="/review" className="mt-4 inline-flex text-[13px] font-semibold underline decoration-accent decoration-2 underline-offset-4">
+                    Review a creative
+                  </Link>
+                </Card>
+              );
+            }
+            return (
+              <Card className="divide-y divide-line">
+                {recent.map(({ client, r }) => (
+                  <Link key={r.id} href={`/clients/${client.slug}`} className="flex items-center gap-3 px-4 py-3 transition hover:bg-soft/60">
+                    <ClientAvatar client={client} size={34} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[14px] font-medium">{r.creative.files.join(", ")}</span>
+                      <span className="flex items-center gap-1.5 text-[12px] text-muted">
+                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${VERDICT[r.result.verdict].dot}`} />
+                        {VERDICT[r.result.verdict].label} · v{r.version} · {client.name}
+                      </span>
+                    </span>
+                  </Link>
+                ))}
+              </Card>
+            );
+          })()}
+        </section>
       </div>
-    </main>
+    </Page>
   );
 }
 
-function SaveBadge({ status }: { status: SaveStatus }) {
-  const text: Record<SaveStatus, string> = {
-    idle: "Saved in GitHub",
-    saving: "Saving…",
-    saved: "✓ Saved to GitHub",
-    error: "⚠ Not saved to GitHub",
-    off: "Not saving (GitHub not set up)",
-  };
-  return <span className={`text-xs ${status === "error" ? "text-amber-700" : "text-slate-500"}`}>{text[status]}</span>;
+function Stat({ label, value, loading, hot }: { label: string; value: number; loading: boolean; hot?: boolean }) {
+  return (
+    <div>
+      <dt className="text-[12px] text-paper/55">{label}</dt>
+      <dd className={`font-display text-[30px] font-bold leading-tight ${hot ? "text-accent" : ""}`}>{loading ? "–" : value}</dd>
+    </div>
+  );
+}
+
+// Today's date, worked out in the browser (the server can't know the viewer's day).
+function useToday() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }),
+    () => "",
+  );
 }

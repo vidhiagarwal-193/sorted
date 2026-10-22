@@ -17,6 +17,8 @@ export function clientSlug(name: string) {
     .slice(0, 40);
 }
 
+export const emptyMemory = (client: string): ClientMemory => ({ client, items: [], alerts: [], updatedAt: "" });
+
 function fileUrl(client: string) {
   return `https://api.github.com/repos/${repo()}/contents/clients/${clientSlug(client)}.json`;
 }
@@ -39,17 +41,32 @@ export async function readMemory(client: string): Promise<{ memory: ClientMemory
   return { memory: JSON.parse(json), sha: data.sha };
 }
 
-export async function writeMemory(memory: ClientMemory, commitMessage: string) {
-  // Look up the latest version first, so GitHub knows which version we're replacing.
-  const existing = await readMemory(memory.client);
-  const res = await fetch(fileUrl(memory.client), {
-    method: "PUT",
-    headers: headers(),
-    body: JSON.stringify({
-      message: commitMessage,
-      content: Buffer.from(JSON.stringify(memory, null, 2)).toString("base64"),
-      sha: existing?.sha,
-    }),
-  });
-  if (!res.ok) throw new Error(`GitHub write failed: ${res.status} ${await res.text()}`);
+// Reads the latest memory, applies `change`, and saves it as one commit.
+// If someone else saved in between (GitHub says 409), it re-reads and tries again.
+// `change` can return null to mean "nothing to save".
+export async function updateMemory(
+  client: string,
+  change: (memory: ClientMemory) => ClientMemory | null,
+  commitMessage: string,
+): Promise<ClientMemory> {
+  for (let attempt = 1; ; attempt++) {
+    const existing = await readMemory(client);
+    const current = existing?.memory ?? emptyMemory(client);
+    const next = change(current);
+    if (!next) return current;
+
+    const saved = { ...next, client, updatedAt: new Date().toISOString() };
+    const res = await fetch(fileUrl(client), {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({
+        message: commitMessage.slice(0, 200),
+        content: Buffer.from(JSON.stringify(saved, null, 2)).toString("base64"),
+        sha: existing?.sha,
+      }),
+    });
+    if (res.ok) return saved;
+    if ((res.status === 409 || res.status === 422) && attempt < 3) continue;
+    throw new Error(`GitHub write failed: ${res.status} ${await res.text()}`);
+  }
 }

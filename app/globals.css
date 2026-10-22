@@ -1,12 +1,72 @@
 @import "tailwindcss";
 
+/* Sorted design tokens. Use as Tailwind classes, e.g. bg-paper, text-ink, border-line, bg-accent. */
 @theme inline {
+  /* Quiet Luxury palette */
+  --color-paper: #f7f5f0; /* warm ivory: page background */
+  --color-card: #ffffff; /* soft porcelain: cards and panels */
+  --color-soft: #eeeae3; /* warm stone: secondary background, hovers */
+  --color-sage: #e9e9e0; /* pale sage-grey: subtle highlighted surfaces */
+  --color-ink: #302c28; /* deep espresso: primary text */
+  --color-muted: #82796f; /* muted taupe: secondary text */
+  --color-line: #e5dfd6; /* soft greige: borders and dividers */
+  --color-accent: #898c72; /* muted olive: selected states, primary actions */
+  --color-accent-deep: #71755d; /* deep olive: accent hover */
+  --color-ok: #718571; /* muted eucalyptus: success */
+  --color-warn: #b29464; /* soft antique ochre: warning / in progress */
+  --color-alert: #b87568; /* muted terracotta: errors and conflicts */
+  --color-alert-ink: #8f5446; /* deeper terracotta for small text, so it stays readable */
+  --color-alert-soft: #f6ece9; /* terracotta tint for conflict surfaces */
+
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-bricolage);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: #f8fafc;
-  color: #0f172a;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Gentle entrance for new pages and newly arrived items. Movement only, so content is never left invisible. */
+@keyframes rise {
+  from {
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.35s ease-out both;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200px 0;
+  }
+  to {
+    background-position: 200px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-soft) 0%, var(--color-paper) 50%, var(--color-soft) 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.2s linear infinite;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .skeleton {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
 }

@@ -3,6 +3,7 @@ export class FriendlyError extends Error {
   constructor(
     message: string,
     public status = 400,
+    public code?: "media_rejected",
   ) {
     super(message);
   }
@@ -14,6 +15,9 @@ export const MODELS = {
   smart: process.env.AI_SMART_MODEL || "google/gemini-3.8-flash", // checks conflicts
 };
 
+// An image or video sent along with the question, e.g. "Slide 2" or "Frame at 0:04".
+export type MediaPart = { label: string; kind: "image" | "video"; dataUrl: string };
+
 // Ask the AI a question and get back JSON in the exact shape of `schema`.
 // Runs only on the server, so the API key never reaches the browser.
 export async function askAIForJSON<T>(opts: {
@@ -22,6 +26,7 @@ export async function askAIForJSON<T>(opts: {
   user: string;
   schema: Record<string, unknown>;
   maxTokens: number;
+  media?: MediaPart[];
 }): Promise<T> {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) {
@@ -42,7 +47,7 @@ export async function askAIForJSON<T>(opts: {
         reasoning: { effort: "low" }, // less "thinking time" so answers come back in seconds
         messages: [
           { role: "system", content: opts.system },
-          { role: "user", content: opts.user },
+          { role: "user", content: opts.media?.length ? withMedia(opts.user, opts.media) : opts.user },
         ],
         response_format: {
           type: "json_schema",
@@ -64,6 +69,12 @@ export async function askAIForJSON<T>(opts: {
     if (res.status === 402) {
       throw new FriendlyError("Your OpenRouter account is out of credit. Add credit at openrouter.ai.", 500);
     }
+    if (res.status === 400 && opts.media?.some((m) => m.kind === "video")) {
+      throw new FriendlyError("The AI couldn't open this video file.", 422, "media_rejected");
+    }
+    if (res.status === 413) {
+      throw new FriendlyError("The upload is too large for the AI. Try fewer or smaller files.", 413);
+    }
     if (res.status === 429) {
       throw new FriendlyError("The AI is busy right now. Wait a few seconds and try again.", 503);
     }
@@ -78,4 +89,17 @@ export async function askAIForJSON<T>(opts: {
     console.error("AI returned non-JSON:", data?.choices?.[0]?.finish_reason, text.slice(0, 500));
     throw new FriendlyError("The AI's answer was garbled. Please try again.", 502);
   }
+}
+
+// Text first, then each image or video with its label, so the AI can refer to "Slide 2" or "0:04".
+function withMedia(text: string, media: MediaPart[]) {
+  return [
+    { type: "text", text },
+    ...media.flatMap((m) => [
+      { type: "text", text: `[${m.label}]` },
+      m.kind === "video"
+        ? { type: "video_url", video_url: { url: m.dataUrl } }
+        : { type: "image_url", image_url: { url: m.dataUrl } },
+    ]),
+  ];
 }
