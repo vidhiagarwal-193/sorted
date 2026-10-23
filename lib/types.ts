@@ -47,7 +47,8 @@ export type InboundMessage = {
 export type Alert = {
   id: string;
   message: string; // what the client just sent
-  from: string; // sender's WhatsApp name
+  from: string; // sender's name in the chat
+  channel?: "whatsapp" | "telegram"; // where the message came from (older alerts: WhatsApp)
   date: string;
   reason: string;
   conflictsWith: string[]; // ids of memory items

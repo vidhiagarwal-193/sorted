@@ -188,7 +188,7 @@ function Workspace({ client }: { client: ClientProfile }) {
                       key={a.id}
                       clientName={client.name}
                       request={a.message}
-                      label={`${a.from} on WhatsApp · ${a.date}`}
+                      label={`${a.from} on ${a.channel === "telegram" ? "Telegram" : "WhatsApp"} · ${a.date}`}
                       reason={a.reason}
                       items={items.filter((it) => a.conflictsWith.includes(it.id))}
                       alternative={a.alternative}

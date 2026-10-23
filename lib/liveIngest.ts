@@ -52,7 +52,7 @@ export async function ingestLiveMessage(m: {
     ]);
     const alert: Alert | null =
       check?.status === "conflict"
-        ? { id: crypto.randomUUID(), message: m.text, from: m.sender, date, reason: check.reason, conflictsWith: check.conflictsWith, alternative: check.alternative, dismissed: false }
+        ? { id: crypto.randomUUID(), message: m.text, from: m.sender, channel: m.channel, date, reason: check.reason, conflictsWith: check.conflictsWith, alternative: check.alternative, dismissed: false }
         : null;
     entry.itemsAdded = items.length;
     entry.conflict = Boolean(alert);

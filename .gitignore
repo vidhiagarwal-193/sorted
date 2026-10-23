@@ -42,3 +42,4 @@ next-env.d.ts
 
 # local Claude Code settings
 .claude/settings.local.json
+/pitch
